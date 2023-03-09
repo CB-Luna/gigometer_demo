@@ -1,0 +1,28 @@
+const String queryIndex = """
+ query QueryGigometer {
+ appGigometer{
+  data{
+    attributes{
+      Title
+      Description
+      PromosTitle
+      Promos{
+        Title
+        Paragraph
+        Buttons{
+          Text
+          Link
+        }
+      }
+      PromosIcons{
+        data{
+          attributes{
+            url
+          }
+        }
+      }
+    }
+  }
+}
+}
+""";
