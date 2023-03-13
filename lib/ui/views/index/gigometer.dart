@@ -46,6 +46,7 @@ class _GigometerState extends State<Gigometer> {
       downloadDone = false;
       loadingDownload = true;
     });
+    setInputsDownload(0, false);
 
     double promedio = 0;
 

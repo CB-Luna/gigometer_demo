@@ -23,11 +23,13 @@ class _CarAnimationState extends State<CarAnimation> {
   Widget build(BuildContext context) {
     return Center(
       child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: 400),
-          child: const SizedBox(
-              width: 400,
-              height: 600,
-              child: RiveAnimation.asset('assets/RiveAssets/GruaRTA.riv'))),
+        constraints: BoxConstraints(maxWidth: 500),
+        child: const SizedBox(
+          width: 400,
+          height: 600,
+          child: RiveAnimation.asset('assets/RiveAssets/GruaRTA.riv'),
+        ),
+      ),
     );
   }
 }
