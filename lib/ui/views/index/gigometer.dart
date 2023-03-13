@@ -43,31 +43,32 @@ class _GigometerState extends State<Gigometer> {
 
   Future<void> _testDownloadSpeed() async {
     setState(() {
-      donwloadDone = false;
+      downloadDone = false;
       loadingDownload = true;
     });
 
     double promedio = 0;
 
     for (var i = 0; i < 3; i++) {
-      downloadRate = await tester.testDownloadSpeed(
-          servers: bestServersList, simultaneousDownloads: 1);
+      downloadRate = await tester.testDownloadSpeed(servers: bestServersList, simultaneousDownloads: 1);
 
       promedio = promedio + downloadRate;
 
-      setInputsDownload(0, true);
       await Future.delayed(const Duration(milliseconds: 100));
       setInputsDownload(downloadRate, false);
     }
 
     setInputsDownload(downloadRate, true);
+
     setState(() {
-      downloadRate = promedio / 2;
+      downloadRate = promedio / 3;
     });
+
     await Future.delayed(const Duration(seconds: 2));
+
     setState(() {
       loadingDownload = false;
-      donwloadDone = true;
+      downloadDone = true;
     });
 
     _testUploadSpeed();
@@ -81,12 +82,10 @@ class _GigometerState extends State<Gigometer> {
     double promedio = 0;
 
     for (var i = 0; i < 5; i++) {
-      uploadRate = await tester.testUploadSpeed(
-          servers: bestServersList, simultaneousUploads: 5);
+      uploadRate = await tester.testUploadSpeed(servers: bestServersList, simultaneousUploads: 5);
 
       promedio = promedio + uploadRate;
 
-      setInputsUpload(0, true);
       await Future.delayed(const Duration(milliseconds: 100));
       setInputsUpload(uploadRate, false);
     }
@@ -101,30 +100,26 @@ class _GigometerState extends State<Gigometer> {
 
 /* -------------------------------------------------------------------------------- */
 
-  Artboard? artboardDownload;
-  StateMachineController? stateMachineControllerDownload;
+  Artboard? artboardRive;
+  StateMachineController? stateMachineController;
   SMIInput<bool>? exitDownload;
-  SMIInput<double>? speedDownload;
-  bool donwloadDone = false;
-
-  Artboard? artboardUpload;
-  StateMachineController? stateMachineControllerUpload;
   SMIInput<bool>? exitUpload;
-  SMIInput<double>? speedUpload;
+  SMIInput<double>? speed;
+  bool downloadDone = false;
 
   Future<void> setInputsDownload(double speedValue, bool exitValue) async {
-    if (artboardDownload != null) {
+    if (artboardRive != null) {
       setState(() {
-        speedDownload!.change(speedValue.toDouble());
+        speed!.change(speedValue.toDouble());
         exitDownload!.change(exitValue);
       });
     }
   }
 
   Future<void> setInputsUpload(double speedValue, bool exitValue) async {
-    if (artboardDownload != null) {
+    if (artboardRive != null) {
       setState(() {
-        speedUpload!.change(speedValue.toDouble());
+        speed!.change(speedValue.toDouble());
         exitUpload!.change(exitValue);
       });
     }
@@ -141,31 +136,22 @@ class _GigometerState extends State<Gigometer> {
     });
     super.initState();
 
-    rootBundle.load('assets/RiveAssets/GigTrans.riv').then((data) async {
-      final fileDownload = RiveFile.import(data);
-      final fileUpload = RiveFile.import(data);
+    rootBundle.load('assets/RiveAssets/GigOmeter.riv').then((data) async {
+      final file = RiveFile.import(data);
 
-      final _artboardDownload = fileDownload.mainArtboard;
-      final _artboardUpload = fileUpload.mainArtboard;
+      final _artboard = file.mainArtboard;
 
-      stateMachineControllerDownload = StateMachineController.fromArtboard(
-          _artboardDownload, 'State Machine 1');
-      stateMachineControllerUpload = StateMachineController.fromArtboard(
-          _artboardUpload, 'State Machine 1');
+      stateMachineController = StateMachineController.fromArtboard(_artboard, 'State Machine 1');
 
-      if (stateMachineControllerDownload != null &&
-          stateMachineControllerUpload != null) {
-        _artboardDownload.addController(stateMachineControllerDownload!);
-        _artboardUpload.addController(stateMachineControllerUpload!);
+      if (stateMachineController != null) {
+        _artboard.addController(stateMachineController!);
 
-        exitDownload = stateMachineControllerDownload!.findInput('exit');
-        speedDownload = stateMachineControllerDownload!.findInput('speed');
-        speedDownload!.change(downloadRate.toDouble());
+        speed = stateMachineController!.findInput('speed');
+        exitDownload = stateMachineController!.findInput('exitDownload');
+        exitUpload = stateMachineController!.findInput('exitUpload');
+
+        speed!.change(0);
         exitDownload!.change(true);
-
-        exitUpload = stateMachineControllerUpload!.findInput('exit');
-        speedUpload = stateMachineControllerUpload!.findInput('speed');
-        speedUpload!.change(uploadRate.toDouble());
         exitUpload!.change(true);
 
         setInputsUpload(uploadRate, true);
@@ -173,8 +159,7 @@ class _GigometerState extends State<Gigometer> {
 
       setState(
         () {
-          artboardDownload = _artboardDownload;
-          artboardUpload = _artboardUpload;
+          artboardRive = _artboard;
         },
       );
     });
@@ -189,33 +174,33 @@ class _GigometerState extends State<Gigometer> {
           children: [
             RateIndicator(
               isActive: loadingDownload,
-              isDone: donwloadDone,
+              isDone: downloadDone,
               isDownload: true,
               rateValue: downloadRate,
             ),
             RateIndicator(
               isActive: loadingUpload,
-              isDone: donwloadDone && readyToTest,
+              isDone: downloadDone && readyToTest,
               isDownload: false,
               rateValue: uploadRate,
             ),
           ],
         ),
-        !donwloadDone
-            ? Column(
-                children: [
-                  SizedBox(
-                    height: 450,
-                    width: 450,
-                    child: artboardDownload == null
-                        ? const CircularProgressIndicator()
-                        : Rive(
-                            artboard: artboardDownload!,
-                          ),
-                  ),
-                  Wrap(
-                    children: [
-                      PrimaryButton(
+        Column(
+          children: [
+            SizedBox(
+              height: 450,
+              width: 450,
+              child: artboardRive == null
+                  ? const CircularProgressIndicator()
+                  : Rive(
+                      artboard: artboardRive!,
+                    ),
+            ),
+            Wrap(
+              children: [
+                !downloadDone
+                    ? PrimaryButton(
                         text: 'Start',
                         isActive: readyToTest && !loadingDownload,
                         bgColor: const Color(0xFF25CB8E),
@@ -225,32 +210,15 @@ class _GigometerState extends State<Gigometer> {
                                 if (!readyToTest || bestServersList.isEmpty) {
                                   return;
                                 }
+                                setState(() {
+                                  speed!.change(0);
+                                  exitDownload!.change(false);
+                                  exitUpload!.change(false);
+                                });
                                 await _testDownloadSpeed();
                               },
-                      ),
-                      PrimaryButton(
-                        text: 'Stop',
-                        isActive: readyToTest && !loadingDownload,
-                        onPressed: () => setInputsDownload(0, true),
-                      ),
-                    ],
-                  ),
-                ],
-              )
-            : Column(
-                children: [
-                  SizedBox(
-                    height: 450,
-                    width: 450,
-                    child: artboardUpload == null
-                        ? const CircularProgressIndicator()
-                        : Rive(
-                            artboard: artboardUpload!,
-                          ),
-                  ),
-                  Wrap(
-                    children: [
-                      PrimaryButton(
+                      )
+                    : PrimaryButton(
                         isActive: readyToTest,
                         bgColor: Colors.blue,
                         onPressed: loadingUpload
@@ -259,28 +227,29 @@ class _GigometerState extends State<Gigometer> {
                                 if (!readyToTest || bestServersList.isEmpty) {
                                   return;
                                 }
-                                await setInputsDownload(0, false);
-                                await setInputsUpload(0, false);
 
-                                downloadRate = 0;
-                                uploadRate = 0;
-
-                                await setInputsDownload(0, true);
-                                await setInputsUpload(0, true);
+                                setState(() {
+                                  downloadDone = false;
+                                  downloadRate = 0;
+                                  uploadRate = 0;
+                                  speed!.change(0);
+                                  exitDownload!.change(false);
+                                  exitUpload!.change(false);
+                                });
 
                                 await _testDownloadSpeed();
                               },
                         text: 'Retry',
                       ),
-                      PrimaryButton(
-                        isActive: readyToTest && !loadingDownload,
-                        onPressed: () => setInputsUpload(0, true),
-                        text: 'Stop',
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                PrimaryButton(
+                  text: 'Stop',
+                  isActive: readyToTest && !loadingDownload,
+                  onPressed: () => setInputsDownload(0, true),
+                ),
+              ],
+            ),
+          ],
+        ),
       ],
     );
   }
