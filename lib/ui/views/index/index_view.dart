@@ -59,9 +59,12 @@ class IndexView extends StatelessWidget {
                 ? WrapAlignment.center
                 : WrapAlignment.spaceBetween,
             children: [
-              FractionallySizedBox(
-                  widthFactor: mobile(context) ? 1.0 : 0.3,
-                  child: const CarAnimation()),
+              Visibility(
+                visible: !mobile(context),
+                child: FractionallySizedBox(
+                    widthFactor: mobile(context) ? 1.0 : 0.3,
+                    child: const CarAnimation()),
+              ),
               FractionallySizedBox(
                   widthFactor: mobile(context) ? 1.0 : 0.4,
                   child: const Gigometer()),

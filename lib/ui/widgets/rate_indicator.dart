@@ -9,14 +9,14 @@ class RateIndicator extends StatefulWidget {
   final double rateValue;
   final Color bgColor;
 
-  const RateIndicator({
-    Key? key,
-    required this.isActive,
-    required this.isDone,
-    required this.isDownload,
-    required this.rateValue,
-    this.bgColor = Colors.blue,
-  }) : super(key: key);
+  const RateIndicator(
+      {Key? key,
+      required this.isActive,
+      required this.isDone,
+      required this.isDownload,
+      required this.rateValue,
+      this.bgColor = const Color(0xFF25CB8E)})
+      : super(key: key);
 
   @override
   State<RateIndicator> createState() => _RateIndicatorState();
@@ -25,17 +25,35 @@ class RateIndicator extends StatefulWidget {
 class _RateIndicatorState extends State<RateIndicator> {
   @override
   Widget build(BuildContext context) {
+    Color loadingColor = const Color.fromARGB(255, 208, 255, 170);
+
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 15),
+      margin: const EdgeInsets.symmetric(horizontal: 25),
       padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 15),
       decoration: BoxDecoration(
-        color: widget.isActive
-            ? widget.bgColor
-            : widget.isDone
-                ? const Color(0xFF25CB8E)
-                : const Color(0xFF8AA7D2).withOpacity(0.75),
-        shape: BoxShape.circle,
-      ),
+          color: widget.isDone ? widget.bgColor : Colors.transparent,
+          shape: BoxShape.circle,
+          border: Border.all(
+              width: 10,
+              color: const Color(0xFF80C2FF).withOpacity(0.35),
+              strokeAlign: BorderSide.strokeAlignOutside),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 20,
+              spreadRadius: -10,
+              color: widget.isActive
+                  ? loadingColor.withOpacity(0.05)
+                  : const Color(0xFF022251).withOpacity(0.25),
+              offset: const Offset(0, 25),
+            ),
+            BoxShadow(
+              blurRadius: 30,
+              spreadRadius: -15,
+              color: widget.isActive
+                  ? loadingColor.withOpacity(0.25)
+                  : const Color(0xFF022251).withOpacity(0.15),
+            )
+          ]),
       child: Column(
         children: [
           Text(widget.isDownload ? "Download" : "Upload",
