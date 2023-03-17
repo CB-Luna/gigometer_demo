@@ -47,12 +47,12 @@ class _GigometerState extends State<Gigometer> {
       loadingDownload = true;
     });
     setInputsDownload(0, false);
+    setInputLoading(false);
 
     double promedio = 0;
 
     for (var i = 0; i < 3; i++) {
-      downloadRate = await tester.testDownloadSpeed(
-          servers: bestServersList, simultaneousDownloads: 1);
+      downloadRate = await tester.testDownloadSpeed(servers: bestServersList, simultaneousDownloads: 1);
 
       promedio = promedio + downloadRate;
 
@@ -84,8 +84,7 @@ class _GigometerState extends State<Gigometer> {
     double promedio = 0;
 
     for (var i = 0; i < 5; i++) {
-      uploadRate = await tester.testUploadSpeed(
-          servers: bestServersList, simultaneousUploads: 5);
+      uploadRate = await tester.testUploadSpeed(servers: bestServersList, simultaneousUploads: 5);
 
       promedio = promedio + uploadRate;
 
@@ -94,6 +93,8 @@ class _GigometerState extends State<Gigometer> {
     }
 
     setInputsUpload(uploadRate, true);
+
+    setInputLoading(true);
 
     setState(() {
       uploadRate = promedio / 5;
@@ -110,6 +111,10 @@ class _GigometerState extends State<Gigometer> {
   SMIInput<double>? speed;
   bool downloadDone = false;
 
+  Artboard? artboardLoadingRive;
+  StateMachineController? stateMachineLoadingController;
+  SMIInput<bool>? exitLoading;
+
   Future<void> setInputsDownload(double speedValue, bool exitValue) async {
     if (artboardRive != null) {
       setState(() {
@@ -124,6 +129,14 @@ class _GigometerState extends State<Gigometer> {
       setState(() {
         speed!.change(speedValue.toDouble());
         exitUpload!.change(exitValue);
+      });
+    }
+  }
+
+  Future<void> setInputLoading(bool exit) async {
+    if (artboardLoadingRive != null) {
+      setState(() {
+        exitLoading!.change(exit);
       });
     }
   }
@@ -144,8 +157,7 @@ class _GigometerState extends State<Gigometer> {
 
       final _artboard = file.mainArtboard;
 
-      stateMachineController =
-          StateMachineController.fromArtboard(_artboard, 'State Machine 1');
+      stateMachineController = StateMachineController.fromArtboard(_artboard, 'State Machine 1');
 
       if (stateMachineController != null) {
         _artboard.addController(stateMachineController!);
@@ -167,6 +179,28 @@ class _GigometerState extends State<Gigometer> {
         },
       );
     });
+
+    rootBundle.load('assets/RiveAssets/LoadingCar.riv').then((data) async {
+      final file = RiveFile.import(data);
+
+      final _artboard = file.mainArtboard;
+
+      stateMachineLoadingController = StateMachineController.fromArtboard(_artboard, 'State Machine 1');
+
+      if (stateMachineLoadingController != null) {
+        _artboard.addController(stateMachineLoadingController!);
+
+        exitLoading = stateMachineLoadingController!.findInput('exit');
+
+        exitLoading!.change(true);
+      }
+
+      setState(
+        () {
+          artboardLoadingRive = _artboard;
+        },
+      );
+    });
   }
 
   @override
@@ -182,12 +216,7 @@ class _GigometerState extends State<Gigometer> {
               isDownload: true,
               rateValue: downloadRate,
             ),
-            RateIndicator(
-                isActive: loadingUpload,
-                isDone: (downloadDone && readyToTest && !loadingUpload),
-                isDownload: false,
-                rateValue: uploadRate,
-                bgColor: Colors.blue),
+            RateIndicator(isActive: loadingUpload, isDone: (downloadDone && readyToTest && !loadingUpload), isDownload: false, rateValue: uploadRate, bgColor: Colors.blue),
           ],
         ),
         Column(
@@ -197,8 +226,11 @@ class _GigometerState extends State<Gigometer> {
               width: 450,
               child: artboardRive == null
                   ? const CircularProgressIndicator()
-                  : Rive(
-                      artboard: artboardRive!,
+                  : Stack(
+                      children: [
+                        Rive(artboard: artboardRive!),
+                        Rive(artboard: artboardLoadingRive!),
+                      ],
                     ),
             ),
             Wrap(
