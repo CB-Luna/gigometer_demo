@@ -183,12 +183,11 @@ class _GigometerState extends State<Gigometer> {
               rateValue: downloadRate,
             ),
             RateIndicator(
-              isActive: loadingUpload,
-              isDone: (downloadDone && readyToTest && !loadingUpload),
-              isDownload: false,
-              rateValue: uploadRate,
-              bgColor: const Color(0xFF2E5899),
-            ),
+                isActive: loadingUpload,
+                isDone: (downloadDone && readyToTest && !loadingUpload),
+                isDownload: false,
+                rateValue: uploadRate,
+                bgColor: Colors.blue),
           ],
         ),
         Column(
