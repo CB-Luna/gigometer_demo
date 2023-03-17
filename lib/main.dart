@@ -26,12 +26,23 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Color(0xFFEDF6FF),
-        body: SingleChildScrollView(
-          child: Center(child: IndexView()),
+        body: Container(
+          alignment: Alignment.center,
+          decoration: const BoxDecoration(
+              gradient: RadialGradient(
+                  colors: <Color>[
+                Color.fromARGB(255, 24, 74, 150),
+                Color.fromARGB(255, 21, 65, 136),
+              ],
+                  center: Alignment.bottomCenter,
+                  tileMode: TileMode.repeated,
+                  radius: 0.25)),
+          child: const SingleChildScrollView(
+            child: Center(child: IndexView()),
+          ),
         ),
       ),
     );

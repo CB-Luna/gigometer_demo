@@ -48,9 +48,10 @@ class IndexView extends StatelessWidget {
           Text(viewTitle,
               textAlign: TextAlign.center,
               style: GoogleFonts.plusJakartaSans(
-                  color: const Color(0xFF001E4D),
+                  // color: const Color(0xFF001E4D),
+                  color: Colors.white,
                   fontSize: mobile(context) ? 45 : 75,
-                  letterSpacing: mobile(context) ? -2 : -5,
+                  letterSpacing: mobile(context) ? -1 : -3,
                   fontWeight: FontWeight.w800)),
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,

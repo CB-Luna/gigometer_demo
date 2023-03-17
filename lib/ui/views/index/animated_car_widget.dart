@@ -27,7 +27,7 @@ class _CarAnimationState extends State<CarAnimation> {
         child: const SizedBox(
           width: 400,
           height: 600,
-          child: RiveAnimation.asset('assets/RiveAssets/GruaRTA.riv'),
+          child: RiveAnimation.asset('assets/RiveAssets/rtatruck.riv'),
         ),
       ),
     );

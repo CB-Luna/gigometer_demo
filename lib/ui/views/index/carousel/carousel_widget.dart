@@ -45,7 +45,7 @@ class _CarouselPromosState extends State<CarouselPromos> {
               Text(
                 widget.title,
                 style: GoogleFonts.plusJakartaSans(
-                  color: const Color(0xFF8AA7D2),
+                  color: Colors.white,
                   fontSize: 18,
                   fontWeight: FontWeight.w400,
                   letterSpacing: -0.25,
@@ -115,8 +115,15 @@ class _CarouselPromosState extends State<CarouselPromos> {
                             ? 0
                             : null,
                         bottom: icon == widget.icons.last ? 0 : null,
-                        child: Image.network(setPath(icon['attributes']['url']),
-                            width: 50))
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.75),
+                              shape: BoxShape.circle),
+                          child: Image.network(
+                              setPath(icon['attributes']['url']),
+                              width: 30),
+                        ))
                 ],
               ),
               Row(

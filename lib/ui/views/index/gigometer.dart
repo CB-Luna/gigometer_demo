@@ -51,7 +51,8 @@ class _GigometerState extends State<Gigometer> {
     double promedio = 0;
 
     for (var i = 0; i < 3; i++) {
-      downloadRate = await tester.testDownloadSpeed(servers: bestServersList, simultaneousDownloads: 1);
+      downloadRate = await tester.testDownloadSpeed(
+          servers: bestServersList, simultaneousDownloads: 1);
 
       promedio = promedio + downloadRate;
 
@@ -83,7 +84,8 @@ class _GigometerState extends State<Gigometer> {
     double promedio = 0;
 
     for (var i = 0; i < 5; i++) {
-      uploadRate = await tester.testUploadSpeed(servers: bestServersList, simultaneousUploads: 5);
+      uploadRate = await tester.testUploadSpeed(
+          servers: bestServersList, simultaneousUploads: 5);
 
       promedio = promedio + uploadRate;
 
@@ -142,7 +144,8 @@ class _GigometerState extends State<Gigometer> {
 
       final _artboard = file.mainArtboard;
 
-      stateMachineController = StateMachineController.fromArtboard(_artboard, 'State Machine 1');
+      stateMachineController =
+          StateMachineController.fromArtboard(_artboard, 'State Machine 1');
 
       if (stateMachineController != null) {
         _artboard.addController(stateMachineController!);
@@ -181,9 +184,10 @@ class _GigometerState extends State<Gigometer> {
             ),
             RateIndicator(
               isActive: loadingUpload,
-              isDone: downloadDone && readyToTest,
+              isDone: (downloadDone && readyToTest && !loadingUpload),
               isDownload: false,
               rateValue: uploadRate,
+              bgColor: const Color(0xFF2E5899),
             ),
           ],
         ),
