@@ -2,6 +2,8 @@ import 'package:animated_digit/animated_digit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../services/resolution.dart';
+
 class RateIndicator extends StatefulWidget {
   final bool isActive;
   final bool isDone;
@@ -29,7 +31,7 @@ class _RateIndicatorState extends State<RateIndicator> {
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 25),
-      padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 15),
+      padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 10),
       decoration: BoxDecoration(
           color: widget.isDone ? widget.bgColor : Colors.transparent,
           shape: BoxShape.circle,
@@ -58,7 +60,7 @@ class _RateIndicatorState extends State<RateIndicator> {
         children: [
           Text(widget.isDownload ? "Download" : "Upload",
               style: GoogleFonts.plusJakartaSans(
-                  fontSize: 16,
+                  fontSize: mobile(context) ? 13 : 16,
                   height: 1.5,
                   color: Colors.white,
                   fontWeight: FontWeight.w500)),
@@ -69,7 +71,7 @@ class _RateIndicatorState extends State<RateIndicator> {
               fractionDigits: 4,
               suffix: " G",
               textStyle: GoogleFonts.workSans(
-                fontSize: 26,
+                fontSize: mobile(context) ? 20 : 26,
                 height: 1,
                 color: Colors.white,
                 fontWeight: FontWeight.w200,

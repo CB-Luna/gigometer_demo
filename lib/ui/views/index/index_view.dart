@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:speed_test/services/index_query.dart';
-import 'package:speed_test/ui/views/index/animated_car_widget.dart';
+import 'package:speed_test/ui/views/index/car_picture_widget.dart';
 import 'package:speed_test/ui/views/index/carousel/carousel_widget.dart';
 
+import '../../../services/resolution.dart';
 import '../../widgets/graphql_call.dart';
 import 'gigometer.dart';
 
@@ -26,19 +27,8 @@ class IndexView extends StatelessWidget {
     var promosIcons = viewData['PromosIcons']['data'];
     var promosData = viewData['Promos'];
 
-    const double minWidth = 900.0;
-
-    // Actual Screen Size
-    screenSize(context) {
-      var screenSize = MediaQuery.of(context).size;
-      return screenSize;
-    }
-
-    mobile(context) {
-      bool mobile = screenSize(context).width < minWidth ? true : false;
-
-      return mobile;
-    }
+    // Zane Truck Image
+    final String zaneTruckImg = viewData['Image']['data']['attributes']['url'];
 
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 1400),
@@ -63,7 +53,7 @@ class IndexView extends StatelessWidget {
                 visible: !mobile(context),
                 child: FractionallySizedBox(
                     widthFactor: mobile(context) ? 1.0 : 0.3,
-                    child: const CarAnimation()),
+                    child: CarImage(url: zaneTruckImg)),
               ),
               FractionallySizedBox(
                   widthFactor: mobile(context) ? 1.0 : 0.4,

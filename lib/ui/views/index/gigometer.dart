@@ -8,6 +8,8 @@ import 'package:speed_test/ui/widgets/rate_indicator.dart';
 import 'package:speed_test_dart/classes/classes.dart';
 import 'package:speed_test_dart/speed_test_dart.dart';
 
+import '../../../services/resolution.dart';
+
 class Gigometer extends StatefulWidget {
   const Gigometer({super.key});
 
@@ -52,7 +54,8 @@ class _GigometerState extends State<Gigometer> {
     double promedio = 0;
 
     for (var i = 0; i < 3; i++) {
-      downloadRate = await tester.testDownloadSpeed(servers: bestServersList, simultaneousDownloads: 1);
+      downloadRate = await tester.testDownloadSpeed(
+          servers: bestServersList, simultaneousDownloads: 1);
 
       promedio = promedio + downloadRate;
 
@@ -84,7 +87,8 @@ class _GigometerState extends State<Gigometer> {
     double promedio = 0;
 
     for (var i = 0; i < 5; i++) {
-      uploadRate = await tester.testUploadSpeed(servers: bestServersList, simultaneousUploads: 5);
+      uploadRate = await tester.testUploadSpeed(
+          servers: bestServersList, simultaneousUploads: 5);
 
       promedio = promedio + uploadRate;
 
@@ -157,7 +161,8 @@ class _GigometerState extends State<Gigometer> {
 
       final _artboard = file.mainArtboard;
 
-      stateMachineController = StateMachineController.fromArtboard(_artboard, 'State Machine 1');
+      stateMachineController =
+          StateMachineController.fromArtboard(_artboard, 'State Machine 1');
 
       if (stateMachineController != null) {
         _artboard.addController(stateMachineController!);
@@ -185,7 +190,8 @@ class _GigometerState extends State<Gigometer> {
 
       final _artboard = file.mainArtboard;
 
-      stateMachineLoadingController = StateMachineController.fromArtboard(_artboard, 'State Machine 1');
+      stateMachineLoadingController =
+          StateMachineController.fromArtboard(_artboard, 'State Machine 1');
 
       if (stateMachineLoadingController != null) {
         _artboard.addController(stateMachineLoadingController!);
@@ -216,16 +222,21 @@ class _GigometerState extends State<Gigometer> {
               isDownload: true,
               rateValue: downloadRate,
             ),
-            RateIndicator(isActive: loadingUpload, isDone: (downloadDone && readyToTest && !loadingUpload), isDownload: false, rateValue: uploadRate, bgColor: Colors.blue),
+            RateIndicator(
+                isActive: loadingUpload,
+                isDone: (downloadDone && readyToTest && !loadingUpload),
+                isDownload: false,
+                rateValue: uploadRate,
+                bgColor: Colors.blue),
           ],
         ),
         Column(
           children: [
             SizedBox(
-              height: 450,
+              height: mobile(context) ? 350 : 450,
               width: 450,
               child: artboardRive == null
-                  ? const CircularProgressIndicator()
+                  ? const Center(child: CircularProgressIndicator())
                   : Stack(
                       children: [
                         Rive(artboard: artboardRive!),

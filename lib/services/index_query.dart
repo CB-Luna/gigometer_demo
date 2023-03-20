@@ -21,6 +21,13 @@ const String queryIndex = """
           }
         }
       }
+      Image{
+        data{
+          attributes{
+            url
+          }
+        }
+      }
     }
   }
 }
