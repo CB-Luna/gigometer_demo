@@ -32,14 +32,10 @@ class _MyAppState extends State<MyApp> {
         body: Container(
           alignment: Alignment.center,
           decoration: const BoxDecoration(
-              gradient: RadialGradient(
-                  colors: <Color>[
-                Color.fromARGB(255, 24, 74, 150),
-                Color.fromARGB(255, 21, 65, 136),
-              ],
-                  center: Alignment.bottomCenter,
-                  tileMode: TileMode.repeated,
-                  radius: 0.25)),
+              gradient: RadialGradient(colors: <Color>[
+            Color.fromARGB(255, 24, 74, 150),
+            Color.fromARGB(255, 21, 65, 136),
+          ], center: Alignment.bottomCenter, tileMode: TileMode.repeated, radius: 0.25)),
           child: const SingleChildScrollView(
             child: Center(child: IndexView()),
           ),
