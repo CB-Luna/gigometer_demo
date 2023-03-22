@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // ignore: avoid_web_libraries_in_flutter
-
+import 'dart:html' as html;
 import '../../../widgets/primary_button.dart';
 
 class CarouselSlide extends StatelessWidget {
@@ -47,7 +47,7 @@ class CarouselSlide extends StatelessWidget {
               child: FittedBox(
                 child: PrimaryButton(
                   text: button['Text'],
-                  onPressed: () => null, //html.window.open(button['Link'], ""),
+                  onPressed: () => html.window.open(button['Link'], ""),
                   isActive: true,
                   bgColor: const Color(0xFF25CB8E),
                 ),

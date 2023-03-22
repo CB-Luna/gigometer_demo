@@ -29,20 +29,32 @@ class IndexView extends StatelessWidget {
 
     // Zane Truck Image
     final String zaneTruckImg = viewData['Image']['data']['attributes']['url'];
+    const double padding = 20.0;
 
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 1400),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(viewTitle,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.plusJakartaSans(
-                  // color: const Color(0xFF001E4D),
-                  color: Colors.white,
-                  fontSize: mobile(context) ? 45 : 75,
-                  letterSpacing: mobile(context) ? -1 : -3,
-                  fontWeight: FontWeight.w800)),
+          Container(
+            padding: const EdgeInsets.only(
+                top: padding, left: padding, right: padding),
+            width: double.infinity,
+            constraints: BoxConstraints(
+                maxWidth: mobile(context)
+                    ? double.infinity
+                    : screenSize(context).width < 1400
+                        ? screenSize(context).width * 0.4
+                        : 550),
+            child: FittedBox(
+              child: Text(viewTitle,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.plusJakartaSans(
+                      color: Colors.white,
+                      letterSpacing: -1,
+                      fontWeight: FontWeight.w800)),
+            ),
+          ),
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             alignment: mobile(context)

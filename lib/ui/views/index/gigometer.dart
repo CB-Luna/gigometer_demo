@@ -12,6 +12,7 @@ import 'package:speed_test_dart/speed_test_dart.dart';
 
 import '../../../services/resolution.dart';
 
+// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 
 class Gigometer extends StatefulWidget {
@@ -58,7 +59,8 @@ class _GigometerState extends State<Gigometer> {
     double promedio = 0;
 
     for (var i = 0; i < 3; i++) {
-      downloadRate = await tester.testDownloadSpeed(servers: bestServersList, simultaneousDownloads: 1);
+      downloadRate = await tester.testDownloadSpeed(
+          servers: bestServersList, simultaneousDownloads: 1);
 
       promedio = promedio + downloadRate;
 
@@ -90,7 +92,8 @@ class _GigometerState extends State<Gigometer> {
     double promedio = 0;
 
     for (var i = 0; i < 5; i++) {
-      uploadRate = await tester.testUploadSpeed(servers: bestServersList, simultaneousUploads: 5);
+      uploadRate = await tester.testUploadSpeed(
+          servers: bestServersList, simultaneousUploads: 5);
 
       promedio = promedio + uploadRate;
 
@@ -132,7 +135,9 @@ class _GigometerState extends State<Gigometer> {
       final _totalSize = tasks.reduce((a, b) => a + b);
 
       setState(() {
-        downloadRate = (_totalSize * 8 / 1024) / (stopwatch.elapsedMilliseconds / 1000) / 1000;
+        downloadRate = (_totalSize * 8 / 1024) /
+            (stopwatch.elapsedMilliseconds / 1000) /
+            1000;
       });
       setInputsDownload(downloadRate, false);
 
@@ -175,7 +180,9 @@ class _GigometerState extends State<Gigometer> {
       tasks.add(response.bodyBytes.length);
       final _totalSize = tasks.reduce((a, b) => a + b);
       setState(() {
-        uploadRate = (_totalSize * 8 / 1024) / (stopwatch.elapsedMilliseconds / 1000) / 1000;
+        uploadRate = (_totalSize * 8 / 1024) /
+            (stopwatch.elapsedMilliseconds / 1000) /
+            1000;
       });
 
       promedio = promedio + uploadRate;
@@ -248,7 +255,8 @@ class _GigometerState extends State<Gigometer> {
 
       final _artboard = file.mainArtboard;
 
-      stateMachineController = StateMachineController.fromArtboard(_artboard, 'State Machine 1');
+      stateMachineController =
+          StateMachineController.fromArtboard(_artboard, 'State Machine 1');
 
       if (stateMachineController != null) {
         _artboard.addController(stateMachineController!);
@@ -276,7 +284,8 @@ class _GigometerState extends State<Gigometer> {
 
       final _artboard = file.mainArtboard;
 
-      stateMachineLoadingController = StateMachineController.fromArtboard(_artboard, 'State Machine 1');
+      stateMachineLoadingController =
+          StateMachineController.fromArtboard(_artboard, 'State Machine 1');
 
       if (stateMachineLoadingController != null) {
         _artboard.addController(stateMachineLoadingController!);
@@ -301,28 +310,41 @@ class _GigometerState extends State<Gigometer> {
       children: [
         Wrap(
           children: [
-            RateIndicator(
-              isActive: loadingDownload,
-              isDone: downloadDone,
-              isDownload: true,
-              rateValue: downloadRate,
+            FractionallySizedBox(
+              widthFactor: 0.325,
+              child: RateIndicator(
+                isActive: loadingDownload,
+                isDone: downloadDone,
+                isDownload: true,
+                rateValue: downloadRate,
+              ),
             ),
-            RateIndicator(isActive: loadingUpload, isDone: (downloadDone && readyToTest && !loadingUpload), isDownload: false, rateValue: uploadRate, bgColor: Colors.blue),
+            FractionallySizedBox(
+              widthFactor: 0.325,
+              child: RateIndicator(
+                  isActive: loadingUpload,
+                  isDone: (downloadDone && readyToTest && !loadingUpload),
+                  isDownload: false,
+                  rateValue: uploadRate,
+                  bgColor: Colors.blue),
+            ),
           ],
         ),
         Column(
           children: [
-            SizedBox(
-              height: mobile(context) ? 350 : 450,
-              width: 450,
-              child: artboardRive == null
-                  ? const Center(child: CircularProgressIndicator())
-                  : Stack(
-                      children: [
-                        Rive(artboard: artboardRive!),
-                        Rive(artboard: artboardLoadingRive!),
-                      ],
-                    ),
+            FittedBox(
+              child: SizedBox(
+                height: screenSize(context).height * 0.55,
+                width: screenSize(context).height * 0.55,
+                child: artboardRive == null
+                    ? const Center(child: CircularProgressIndicator())
+                    : Stack(
+                        children: [
+                          Rive(artboard: artboardRive!),
+                          Rive(artboard: artboardLoadingRive!),
+                        ],
+                      ),
+              ),
             ),
             Wrap(
               children: [
