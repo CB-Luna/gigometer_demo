@@ -5,10 +5,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rive/rive.dart';
+import 'package:speed_test/modified_speed_test_dart.dart';
 import 'package:speed_test/ui/widgets/primary_button.dart';
 import 'package:speed_test/ui/widgets/rate_indicator.dart';
 import 'package:speed_test_dart/classes/classes.dart';
-import 'package:speed_test_dart/speed_test_dart.dart';
+import 'package:speed_test_dart/enums/file_size.dart';
 
 import '../../../services/resolution.dart';
 
@@ -25,6 +26,7 @@ class Gigometer extends StatefulWidget {
 class _GigometerState extends State<Gigometer> {
   SpeedTestDart tester = SpeedTestDart();
   List<Server> bestServersList = [];
+  List<FileSize> fileSize = [FileSize.SIZE_3000];
   bool encendido = false;
 
   double downloadRate = 0;
@@ -59,8 +61,7 @@ class _GigometerState extends State<Gigometer> {
     double promedio = 0;
 
     for (var i = 0; i < 3; i++) {
-      downloadRate = await tester.testDownloadSpeed(
-          servers: bestServersList, simultaneousDownloads: 1);
+      downloadRate = await tester.testDownloadSpeed(servers: bestServersList, downloadSizes: fileSize);
 
       promedio = promedio + downloadRate;
 
@@ -92,8 +93,7 @@ class _GigometerState extends State<Gigometer> {
     double promedio = 0;
 
     for (var i = 0; i < 5; i++) {
-      uploadRate = await tester.testUploadSpeed(
-          servers: bestServersList, simultaneousUploads: 5);
+      uploadRate = await tester.testUploadSpeed(servers: bestServersList, simultaneousUploads: 5);
 
       promedio = promedio + uploadRate;
 
@@ -135,9 +135,7 @@ class _GigometerState extends State<Gigometer> {
       final _totalSize = tasks.reduce((a, b) => a + b);
 
       setState(() {
-        downloadRate = (_totalSize * 8 / 1024) /
-            (stopwatch.elapsedMilliseconds / 1000) /
-            1000;
+        downloadRate = (_totalSize * 8 / 1024) / (stopwatch.elapsedMilliseconds / 1000) / 1000;
       });
       setInputsDownload(downloadRate, false);
 
@@ -180,9 +178,7 @@ class _GigometerState extends State<Gigometer> {
       tasks.add(response.bodyBytes.length);
       final _totalSize = tasks.reduce((a, b) => a + b);
       setState(() {
-        uploadRate = (_totalSize * 8 / 1024) /
-            (stopwatch.elapsedMilliseconds / 1000) /
-            1000;
+        uploadRate = (_totalSize * 8 / 1024) / (stopwatch.elapsedMilliseconds / 1000) / 1000;
       });
 
       promedio = promedio + uploadRate;
@@ -255,8 +251,7 @@ class _GigometerState extends State<Gigometer> {
 
       final _artboard = file.mainArtboard;
 
-      stateMachineController =
-          StateMachineController.fromArtboard(_artboard, 'State Machine 1');
+      stateMachineController = StateMachineController.fromArtboard(_artboard, 'State Machine 1');
 
       if (stateMachineController != null) {
         _artboard.addController(stateMachineController!);
@@ -284,8 +279,7 @@ class _GigometerState extends State<Gigometer> {
 
       final _artboard = file.mainArtboard;
 
-      stateMachineLoadingController =
-          StateMachineController.fromArtboard(_artboard, 'State Machine 1');
+      stateMachineLoadingController = StateMachineController.fromArtboard(_artboard, 'State Machine 1');
 
       if (stateMachineLoadingController != null) {
         _artboard.addController(stateMachineLoadingController!);
@@ -321,12 +315,7 @@ class _GigometerState extends State<Gigometer> {
             ),
             FractionallySizedBox(
               widthFactor: 0.325,
-              child: RateIndicator(
-                  isActive: loadingUpload,
-                  isDone: (downloadDone && readyToTest && !loadingUpload),
-                  isDownload: false,
-                  rateValue: uploadRate,
-                  bgColor: Colors.blue),
+              child: RateIndicator(isActive: loadingUpload, isDone: (downloadDone && readyToTest && !loadingUpload), isDownload: false, rateValue: uploadRate, bgColor: Colors.blue),
             ),
           ],
         ),
