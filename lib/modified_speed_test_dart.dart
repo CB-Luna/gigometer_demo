@@ -47,7 +47,7 @@ class SpeedTestDart {
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
     <servers>
-         <server url="https://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="34.0500" lon="-118.2500" name="Fallas, TX" country="United States" cc="US" sponsor="Rural Telecommunications of America, Inc." id="18401"  host="dalspeedtest.rtatel.com:8080" />
+         <server url="http://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="34.0500" lon="-118.2500" name="Fallas, TX" country="United States" cc="US" sponsor="Rural Telecommunications of America, Inc." id="18401"  host="dalspeedtest.rtatel.com:8080" />
     </servers>
 </settings>
 ''')?.getElement('settings'),
