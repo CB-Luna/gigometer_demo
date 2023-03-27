@@ -5,11 +5,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rive/rive.dart';
-import 'package:speed_test/modified_speed_test_dart.dart';
 import 'package:speed_test/ui/widgets/primary_button.dart';
 import 'package:speed_test/ui/widgets/rate_indicator.dart';
 import 'package:speed_test_dart/classes/classes.dart';
 import 'package:speed_test_dart/enums/file_size.dart';
+import 'package:speed_test_dart/speed_test_dart.dart';
 
 import '../../../services/resolution.dart';
 

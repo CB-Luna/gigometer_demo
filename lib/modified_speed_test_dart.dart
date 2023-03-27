@@ -42,12 +42,14 @@ class SpeedTestDart {
       try {
         // final resp = await http.get(Uri.parse(element));
 
+//   <server url="https://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="34.0500" lon="-118.2500" name="Fallas, TX" country="United States" cc="US" sponsor="Rural Telecommunications of America, Inc." id="18401"  host="dalspeedtest.rtatel.com:8080" />
+// <server url=" http://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="32.5308" lon="-117.0200" name="Tijuana" country="Mexico" cc="MX" sponsor="Totalplay" id="3955"  host="tijuana.speedtest.totalplay.com.mx:8080" />
         serversConfig = ServersList.fromXMLElement(
           XmlDocument.from('''
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
     <servers>
-        <server url=" http://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="32.5308" lon="-117.0200" name="Tijuana" country="Mexico" cc="MX" sponsor="Totalplay" id="3955"  host="tijuana.speedtest.totalplay.com.mx:8080" />
+        <server url="https://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="34.0500" lon="-118.2500" name="Fallas, TX" country="United States" cc="US" sponsor="Rural Telecommunications of America, Inc." id="18401"  host="dalspeedtest.rtatel.com:8080" />
     </servers>
 </settings>
 ''')?.getElement('settings'),
