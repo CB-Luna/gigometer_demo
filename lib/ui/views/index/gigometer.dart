@@ -60,7 +60,7 @@ class _GigometerState extends State<Gigometer> {
 
     double promedio = 0;
 
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < 20; i++) {
       downloadRate = await tester.testDownloadSpeed(servers: bestServersList, downloadSizes: fileSize);
 
       promedio = promedio + downloadRate;
@@ -69,11 +69,12 @@ class _GigometerState extends State<Gigometer> {
       setInputsDownload(downloadRate, false);
     }
 
-    setInputsDownload(downloadRate, true);
-
     setState(() {
-      downloadRate = promedio / 3;
+      downloadRate = promedio / 20;
     });
+
+    setInputsDownload(downloadRate, false);
+    setInputsDownload(downloadRate, true);
 
     await Future.delayed(const Duration(seconds: 2));
 
@@ -92,8 +93,8 @@ class _GigometerState extends State<Gigometer> {
 
     double promedio = 0;
 
-    for (var i = 0; i < 5; i++) {
-      uploadRate = await tester.testUploadSpeed(servers: bestServersList, simultaneousUploads: 5);
+    for (var i = 0; i < 30; i++) {
+      uploadRate = await tester.testUploadSpeed(servers: bestServersList);
 
       promedio = promedio + uploadRate;
 
@@ -101,19 +102,23 @@ class _GigometerState extends State<Gigometer> {
       setInputsUpload(uploadRate, false);
     }
 
+    setState(() {
+      uploadRate = promedio / 30;
+    });
+
+    setInputsUpload(uploadRate, false);
     setInputsUpload(uploadRate, true);
 
     setInputLoading(true);
 
     setState(() {
-      uploadRate = promedio / 5;
       loadingUpload = false;
     });
   }
 
 /* -------------------------------------------------------------------------------- */
 
-  Future<void> _testDownloadSpeed2() async {
+/*   Future<void> _testDownloadSpeed2() async {
     setState(() {
       downloadDone = false;
       loadingDownload = true;
@@ -142,10 +147,12 @@ class _GigometerState extends State<Gigometer> {
       promedio = promedio + downloadRate;
     }
 
-    setInputsDownload(downloadRate, true);
     setState(() {
-      downloadRate = promedio / 10;
+      uploadRate = promedio / 20;
     });
+
+    setInputsUpload(uploadRate, false);
+    setInputsUpload(uploadRate, true);
 
     await Future.delayed(const Duration(seconds: 2));
 
@@ -156,8 +163,8 @@ class _GigometerState extends State<Gigometer> {
 
     _testUploadSpeed2();
   }
-
-  Future<void> _testUploadSpeed2() async {
+ */
+/*   Future<void> _testUploadSpeed2() async {
     setState(() {
       loadingUpload = true;
     });
@@ -195,7 +202,7 @@ class _GigometerState extends State<Gigometer> {
       loadingUpload = false;
     });
   }
-
+ */
 /* -------------------------------------------------------------------------------- */
 
   Artboard? artboardRive;

@@ -47,7 +47,7 @@ class SpeedTestDart {
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
     <servers>
-         <server url="http://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="34.0500" lon="-118.2500" name="Fallas, TX" country="United States" cc="US" sponsor="Rural Telecommunications of America, Inc." id="18401"  host="dalspeedtest.rtatel.com:8080" />
+        <server url=" http://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="32.5308" lon="-117.0200" name="Tijuana" country="Mexico" cc="MX" sponsor="Totalplay" id="3955"  host="tijuana.speedtest.totalplay.com.mx:8080" />
     </servers>
 </settings>
 ''')?.getElement('settings'),
@@ -177,8 +177,8 @@ class SpeedTestDart {
   /// Returns [double] upload speed in MB/s.
   Future<double> testUploadSpeed({
     required List<Server> servers,
-    int simultaneousUploads = 2,
-    int retryCount = 3,
+    int simultaneousUploads = 1,
+    int retryCount = 1,
   }) async {
     double uploadSpeed = 0;
     for (var s in servers) {
