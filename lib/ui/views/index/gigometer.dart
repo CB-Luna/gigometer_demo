@@ -1,17 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
+
+import 'package:speed_test/providers/providers.dart';
+import 'package:speed_test/services/resolution.dart';
 import 'package:speed_test/ui/widgets/primary_button.dart';
 import 'package:speed_test/ui/widgets/rate_indicator.dart';
-import 'package:speed_test_dart/classes/classes.dart';
-import 'package:speed_test_dart/enums/file_size.dart';
-
-import '../../../modified_speed_test_dart.dart';
-import '../../../services/resolution.dart';
-
-import 'package:http/http.dart' as http;
 
 class Gigometer extends StatefulWidget {
   const Gigometer({super.key});
@@ -21,293 +15,24 @@ class Gigometer extends StatefulWidget {
 }
 
 class _GigometerState extends State<Gigometer> {
-  SpeedTestDart tester = SpeedTestDart();
-  List<Server> bestServersList = [];
-  List<FileSize> fileSize = [FileSize.SIZE_3000];
-  bool encendido = false;
-
-  double downloadRate = 0;
-  double uploadRate = 0;
-
-  bool readyToTest = false;
-  bool loadingDownload = false;
-  bool loadingUpload = false;
-
-  Future<void> setBestServers() async {
-    final settings = await tester.getSettings();
-    final servers = settings.servers;
-
-    final _bestServersList = await tester.getBestServers(
-      servers: servers,
-    );
-
-    setState(() {
-      bestServersList = _bestServersList;
-      readyToTest = true;
-    });
-  }
-
-  Future<void> _testDownloadSpeed() async {
-    setState(() {
-      downloadDone = false;
-      loadingDownload = true;
-    });
-    setInputsDownload(0, false);
-    setInputLoading(false);
-
-    double promedio = 0;
-
-    for (var i = 0; i < 20; i++) {
-      downloadRate = await tester.testDownloadSpeed(
-        servers: bestServersList,
-        downloadSizes: fileSize,
-      );
-
-      promedio = promedio + downloadRate;
-
-      await Future.delayed(const Duration(milliseconds: 100));
-      setInputsDownload(downloadRate, false);
-    }
-
-    setState(() {
-      downloadRate = promedio / 20;
-    });
-
-    setInputsDownload(downloadRate, false);
-    setInputsDownload(downloadRate, true);
-
-    await Future.delayed(const Duration(seconds: 2));
-
-    setState(() {
-      loadingDownload = false;
-      downloadDone = true;
-    });
-
-    _testUploadSpeed();
-  }
-
-  Future<void> _testUploadSpeed() async {
-    setState(() {
-      loadingUpload = true;
-    });
-
-    double promedio = 0;
-
-    for (var i = 0; i < 30; i++) {
-      uploadRate = await tester.testUploadSpeed(servers: bestServersList);
-
-      promedio = promedio + uploadRate;
-
-      await Future.delayed(const Duration(milliseconds: 100));
-      setInputsUpload(uploadRate, false);
-    }
-
-    setState(() {
-      uploadRate = promedio / 30;
-    });
-
-    setInputsUpload(uploadRate, false);
-    setInputsUpload(uploadRate, true);
-
-    setInputLoading(true);
-
-    setState(() {
-      loadingUpload = false;
-    });
-  }
-
-/* -------------------------------------------------------------------------------- */
-
-/*   Future<void> _testDownloadSpeed2() async {
-    setState(() {
-      downloadDone = false;
-      loadingDownload = true;
-    });
-
-    double promedio = 0;
-
-    final stopwatch = Stopwatch()..start();
-    final tasks = <int>[];
-
-    for (var i = 0; i < 10; i++) {
-      double rndm = Random().nextDouble() * 1.1000000000000000;
-      var response = await http.get(
-        Uri.parse(
-          'https://rtatel.cbluna-dev.com/downloading?n=$rndm',
-        ),
-      );
-      tasks.add(response.bodyBytes.length);
-      final _totalSize = tasks.reduce((a, b) => a + b);
-
-      setState(() {
-        downloadRate = (_totalSize * 8 / 1024) / (stopwatch.elapsedMilliseconds / 1000) / 1000;
-      });
-      setInputsDownload(downloadRate, false);
-
-      promedio = promedio + downloadRate;
-    }
-
-    setState(() {
-      uploadRate = promedio / 20;
-    });
-
-    setInputsUpload(uploadRate, false);
-    setInputsUpload(uploadRate, true);
-
-    await Future.delayed(const Duration(seconds: 2));
-
-    setState(() {
-      loadingDownload = false;
-      downloadDone = true;
-    });
-
-    _testUploadSpeed2();
-  }
- */
-/*   Future<void> _testUploadSpeed2() async {
-    setState(() {
-      loadingUpload = true;
-    });
-
-    double promedio = 0;
-
-    final stopwatch = Stopwatch()..start();
-    final tasks = <int>[];
-
-    for (var i = 0; i < 10; i++) {
-      double rndm = Random().nextDouble() * 1.1000000000000000;
-      var response = await http.post(
-        Uri.parse(
-          'https://rtatel.cbluna-dev.com/upload?n=$rndm',
-        ),
-      );
-
-      tasks.add(response.bodyBytes.length);
-      final _totalSize = tasks.reduce((a, b) => a + b);
-      setState(() {
-        uploadRate = (_totalSize * 8 / 1024) / (stopwatch.elapsedMilliseconds / 1000) / 1000;
-      });
-
-      promedio = promedio + uploadRate;
-
-      setInputsUpload(uploadRate, false);
-    }
-
-    setInputsUpload(uploadRate, true);
-
-    setInputLoading(true);
-
-    setState(() {
-      uploadRate = promedio / 10;
-      loadingUpload = false;
-    });
-  }
- */
-/* -------------------------------------------------------------------------------- */
-
-  Artboard? artboardRive;
-  StateMachineController? stateMachineController;
-  SMIInput<bool>? exitDownload;
-  SMIInput<bool>? exitUpload;
-  SMIInput<double>? speed;
-  bool downloadDone = false;
-
-  Artboard? artboardLoadingRive;
-  StateMachineController? stateMachineLoadingController;
-  SMIInput<bool>? exitLoading;
-
-  Future<void> setInputsDownload(double speedValue, bool exitValue) async {
-    if (artboardRive != null) {
-      setState(() {
-        speed!.change(speedValue.toDouble());
-        exitDownload!.change(exitValue);
-      });
-    }
-  }
-
-  Future<void> setInputsUpload(double speedValue, bool exitValue) async {
-    if (artboardRive != null) {
-      setState(() {
-        speed!.change(speedValue.toDouble());
-        exitUpload!.change(exitValue);
-      });
-    }
-  }
-
-  Future<void> setInputLoading(bool exit) async {
-    if (artboardLoadingRive != null) {
-      setState(() {
-        exitLoading!.change(exit);
-      });
-    }
-  }
-
-/* -------------------------------------------------------------------------------- */
-
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setBestServers();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      GigometerProvider provider = Provider.of<GigometerProvider>(
+        context,
+        listen: false,
+      );
+      await provider.setBestServers();
+      await provider.setRootBundle();
       /* _testDownloadSpeed();
       _testUploadSpeed(); */
     });
     super.initState();
-
-    rootBundle.load('assets/RiveAssets/GigOmeter.riv').then((data) async {
-      final file = RiveFile.import(data);
-
-      final _artboard = file.mainArtboard;
-
-      stateMachineController =
-          StateMachineController.fromArtboard(_artboard, 'State Machine 1');
-
-      if (stateMachineController != null) {
-        _artboard.addController(stateMachineController!);
-
-        speed = stateMachineController!.findInput('speed');
-        exitDownload = stateMachineController!.findInput('exitDownload');
-        exitUpload = stateMachineController!.findInput('exitUpload');
-
-        speed!.change(0);
-        exitDownload!.change(true);
-        exitUpload!.change(true);
-
-        setInputsUpload(uploadRate, true);
-      }
-
-      setState(
-        () {
-          artboardRive = _artboard;
-        },
-      );
-    });
-
-    rootBundle.load('assets/RiveAssets/LoadingCar.riv').then((data) async {
-      final file = RiveFile.import(data);
-
-      final _artboard = file.mainArtboard;
-
-      stateMachineLoadingController =
-          StateMachineController.fromArtboard(_artboard, 'State Machine 1');
-
-      if (stateMachineLoadingController != null) {
-        _artboard.addController(stateMachineLoadingController!);
-
-        exitLoading = stateMachineLoadingController!.findInput('exit');
-
-        exitLoading!.change(true);
-      }
-
-      setState(
-        () {
-          artboardLoadingRive = _artboard;
-        },
-      );
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    GigometerProvider provider = Provider.of<GigometerProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -316,19 +41,21 @@ class _GigometerState extends State<Gigometer> {
             FractionallySizedBox(
               widthFactor: 0.325,
               child: RateIndicator(
-                isActive: loadingDownload,
-                isDone: downloadDone,
+                isActive: provider.loadingDownload,
+                isDone: provider.downloadDone,
                 isDownload: true,
-                rateValue: downloadRate,
+                rateValue: provider.downloadRate,
               ),
             ),
             FractionallySizedBox(
               widthFactor: 0.325,
               child: RateIndicator(
-                isActive: loadingUpload,
-                isDone: (downloadDone && readyToTest && !loadingUpload),
+                isActive: provider.loadingUpload,
+                isDone: (provider.downloadDone &&
+                    provider.readyToTest &&
+                    !provider.loadingUpload),
                 isDownload: false,
-                rateValue: uploadRate,
+                rateValue: provider.uploadRate,
                 bgColor: Colors.blue,
               ),
             ),
@@ -340,63 +67,67 @@ class _GigometerState extends State<Gigometer> {
               child: SizedBox(
                 height: screenSize(context).height * 0.55,
                 width: screenSize(context).height * 0.55,
-                child: artboardRive == null
+                child: provider.artboardRive == null
                     ? const Center(child: CircularProgressIndicator())
                     : Stack(
                         children: [
-                          Rive(artboard: artboardRive!),
-                          Rive(artboard: artboardLoadingRive!),
+                          Rive(artboard: provider.artboardRive!),
+                          Rive(artboard: provider.artboardLoadingRive!),
                         ],
                       ),
               ),
             ),
             Wrap(
               children: [
-                !downloadDone
+                !provider.downloadDone
                     ? PrimaryButton(
                         text: 'Start',
-                        isActive: readyToTest && !loadingDownload,
+                        isActive:
+                            provider.readyToTest && !provider.loadingDownload,
                         bgColor: const Color(0xFF25CB8E),
-                        onPressed: loadingDownload
+                        onPressed: provider.loadingDownload
                             ? null
                             : () async {
-                                if (!readyToTest || bestServersList.isEmpty) {
+                                if (!provider.readyToTest ||
+                                    provider.bestServersList.isEmpty) {
                                   return;
                                 }
-                                setState(() {
-                                  speed!.change(0);
-                                  exitDownload!.change(false);
-                                  exitUpload!.change(false);
-                                });
-                                await _testDownloadSpeed();
+
+                                provider.speed!.change(0);
+                                provider.exitDownload!.change(false);
+                                provider.exitUpload!.change(false);
+
+                                await provider.testDownloadSpeed();
                               },
                       )
                     : PrimaryButton(
-                        isActive: readyToTest,
+                        isActive: provider.readyToTest,
                         bgColor: Colors.blue,
-                        onPressed: loadingUpload
+                        onPressed: provider.loadingUpload
                             ? null
                             : () async {
-                                if (!readyToTest || bestServersList.isEmpty) {
+                                if (!provider.readyToTest ||
+                                    provider.bestServersList.isEmpty) {
                                   return;
                                 }
-                                setState(() {
-                                  downloadDone = false;
-                                  downloadRate = 0;
-                                  uploadRate = 0;
-                                  speed!.change(0);
-                                  exitDownload!.change(false);
-                                  exitUpload!.change(false);
-                                });
 
-                                await _testDownloadSpeed();
+                                provider.downloadDone = false;
+                                provider.downloadRate = 0;
+                                provider.uploadRate = 0;
+                                provider.speed!.change(0);
+                                provider.exitDownload!.change(false);
+                                provider.exitUpload!.change(false);
+
+                                await provider.testDownloadSpeed();
                               },
                         text: 'Retry',
                       ),
                 PrimaryButton(
                   text: 'Stop',
-                  isActive: readyToTest && !loadingDownload,
-                  onPressed: () => setInputsDownload(0, true),
+                  isActive: provider.readyToTest && !provider.loadingDownload,
+                  onPressed: () async {
+                    await provider.setInputsDownload(0, true);
+                  },
                 ),
               ],
             ),

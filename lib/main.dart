@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 
+import 'package:speed_test/providers/providers.dart';
 import 'package:speed_test/services/graphql_config.dart';
 import 'package:speed_test/ui/views/index/index_view.dart';
 
 void main() => runApp(
       GraphQLProvider(
         client: GraphQLConfiguration.clientToQuery(),
-        child: const MyApp(),
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (_) => GigometerProvider(),
+            )
+          ],
+          child: const MyApp(),
+        ),
       ),
     );
 

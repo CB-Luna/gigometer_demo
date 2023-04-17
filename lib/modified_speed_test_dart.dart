@@ -41,18 +41,17 @@ class SpeedTestDart {
       if (serversConfig.servers.isNotEmpty) break;
       try {
         // final resp = await http.get(Uri.parse(element));
-
-//   <server url="https://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="34.0500" lon="-118.2500" name="Fallas, TX" country="United States" cc="US" sponsor="Rural Telecommunications of America, Inc." id="18401"  host="dalspeedtest.rtatel.com:8080" />
-// <server url=" http://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="32.5308" lon="-117.0200" name="Tijuana" country="Mexico" cc="MX" sponsor="Totalplay" id="3955"  host="tijuana.speedtest.totalplay.com.mx:8080" />
+        //   <server url="https://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="34.0500" lon="-118.2500" name="Fallas, TX" country="United States" cc="US" sponsor="Rural Telecommunications of America, Inc." id="18401"  host="dalspeedtest.rtatel.com:8080" />
+        // <server url=" http://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="32.5308" lon="-117.0200" name="Tijuana" country="Mexico" cc="MX" sponsor="Totalplay" id="3955"  host="tijuana.speedtest.totalplay.com.mx:8080" />
         serversConfig = ServersList.fromXMLElement(
           XmlDocument.from('''
-<?xml version="1.0" encoding="UTF-8"?>
-<settings>
-    <servers>
-        <server url="http://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="34.0500" lon="-118.2500" name="Fallas, TX" country="United States" cc="US" sponsor="Rural Telecommunications of America, Inc." id="18401"  host="dalspeedtest.rtatel.com:8080" />
-    </servers>
-</settings>
-''')?.getElement('settings'),
+            <?xml version="1.0" encoding="UTF-8"?>
+            <settings>
+                <servers>
+                    <server url="http://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="34.0500" lon="-118.2500" name="Dallas, TX" country="United States" cc="US" sponsor="Rural Telecommunications of America, Inc." id="18401"  host="dalspeedtest.rtatel.com:8080" />
+                </servers>
+            </settings>
+            ''')?.getElement('settings'),
         );
       } catch (ex) {
         serversConfig = ServersList(<Server>[]);
@@ -132,7 +131,10 @@ class SpeedTestDart {
     for (final ds in downloadSizes) {
       for (var i = 0; i < retryCount; i++) {
         result.add(
-          downloadUriBase.toString().replaceAll('%7B0%7D', FILE_SIZE_MAPPING[ds].toString()).replaceAll('%7B1%7D', i.toString()),
+          downloadUriBase
+              .toString()
+              .replaceAll('%7B0%7D', FILE_SIZE_MAPPING[ds].toString())
+              .replaceAll('%7B1%7D', i.toString()),
         );
       }
     }
@@ -167,7 +169,9 @@ class SpeedTestDart {
         });
         stopwatch.stop();
         final _totalSize = tasks.reduce((a, b) => a + b);
-        downloadSpeed = (_totalSize * 8 / 1024) / (stopwatch.elapsedMilliseconds / 1000) / 1000;
+        downloadSpeed = (_totalSize * 8 / 1024) /
+            (stopwatch.elapsedMilliseconds / 1000) /
+            1000;
         break;
       } catch (_) {
         continue;
@@ -202,7 +206,9 @@ class SpeedTestDart {
         });
         stopwatch.stop();
         final _totalSize = tasks.reduce((a, b) => a + b);
-        uploadSpeed = (_totalSize * 8 / 1024) / (stopwatch.elapsedMilliseconds / 1000) / 1000;
+        uploadSpeed = (_totalSize * 8 / 1024) /
+            (stopwatch.elapsedMilliseconds / 1000) /
+            1000;
         break;
       } catch (_) {
         continue;
@@ -218,7 +224,8 @@ class SpeedTestDart {
 
     for (var sizeCounter = 1; sizeCounter < maxUploadSize + 1; sizeCounter++) {
       final size = sizeCounter * 200 * 1024;
-      final builder = StringBuffer()..write('content ${sizeCounter.toString()}=');
+      final builder = StringBuffer()
+        ..write('content ${sizeCounter.toString()}=');
 
       for (var i = 0; i < size; ++i) {
         builder.write(hars[random.nextInt(hars.length)]);
