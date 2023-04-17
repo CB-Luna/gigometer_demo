@@ -1,15 +1,18 @@
-import 'dart:math';
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:puppeteer/puppeteer.dart';
 import 'package:rive/rive.dart';
+import 'package:speed_test/global.dart';
+import 'package:speed_test/services/resolution.dart';
 import 'package:speed_test/ui/widgets/primary_button.dart';
 import 'package:speed_test/ui/widgets/rate_indicator.dart';
 import 'package:speed_test_dart/classes/classes.dart';
 import 'package:speed_test_dart/enums/file_size.dart';
 
 import '../../../modified_speed_test_dart.dart';
-import '../../../services/resolution.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -23,7 +26,7 @@ class Gigometer extends StatefulWidget {
 class _GigometerState extends State<Gigometer> {
   SpeedTestDart tester = SpeedTestDart();
   List<Server> bestServersList = [];
-  List<FileSize> fileSize = [FileSize.SIZE_3000];
+  //List<FileSize> fileSize = [FileSize.SIZE_5000];
   bool encendido = false;
 
   double downloadRate = 0;
@@ -57,20 +60,21 @@ class _GigometerState extends State<Gigometer> {
 
     double promedio = 0;
 
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 10; i++) {
       downloadRate = await tester.testDownloadSpeed(
         servers: bestServersList,
-        downloadSizes: fileSize,
+        simultaneousDownloads: 10,
+        //downloadSizes: fileSize,
       );
 
       promedio = promedio + downloadRate;
 
-      await Future.delayed(const Duration(milliseconds: 100));
+      //await Future.delayed(const Duration(milliseconds: 100));
       setInputsDownload(downloadRate, false);
     }
 
     setState(() {
-      downloadRate = promedio / 20;
+      downloadRate = promedio / 10;
     });
 
     setInputsDownload(downloadRate, false);
@@ -93,8 +97,11 @@ class _GigometerState extends State<Gigometer> {
 
     double promedio = 0;
 
-    for (var i = 0; i < 30; i++) {
-      uploadRate = await tester.testUploadSpeed(servers: bestServersList);
+    for (var i = 0; i < 20; i++) {
+      uploadRate = await tester.testUploadSpeed(
+        servers: bestServersList,
+        simultaneousUploads: 10,
+      );
 
       promedio = promedio + uploadRate;
 
@@ -103,7 +110,7 @@ class _GigometerState extends State<Gigometer> {
     }
 
     setState(() {
-      uploadRate = promedio / 30;
+      uploadRate = promedio / 20;
     });
 
     setInputsUpload(uploadRate, false);
@@ -116,8 +123,365 @@ class _GigometerState extends State<Gigometer> {
     });
   }
 
+  Future<void> _testDownloadSpeed4() async {
+    setState(() {
+      downloadDone = false;
+      loadingDownload = true;
+    });
+    double promedio = 0;
+
+    String url = 'http://dalspeedtest.rtatel.com:8080/speedtest';
+
+    setInputLoading(false);
+
+    var stopwatch = Stopwatch()..start();
+    var response = await http.get(Uri.parse('$url/random6000x6000.jpg?r=0'));
+    stopwatch.stop();
+    var contentLength = int.parse(response.headers['content-length']!);
+    var bytes = response.bodyBytes;
+    var duration = stopwatch.elapsedMilliseconds;
+    var speed = (bytes.length / 1024 / 1024) / (duration / 1000) * 10;
+    print('Tamaño del archivo: ${(contentLength / 1024 / 1024).toStringAsFixed(2)} MB');
+    print('Tiempo de respuesta: ${duration / 1000} seg');
+    print('Velocidad de descarga: ${speed.toStringAsFixed(2)} MB/s');
+
+    setInputsDownload(speed, false);
+
+    promedio = promedio + speed;
+
+    stopwatch = Stopwatch()..start();
+    response = await http.get(Uri.parse('$url/random5000x5000.jpg?r=0'));
+    stopwatch.stop();
+    contentLength = int.parse(response.headers['content-length']!);
+    bytes = response.bodyBytes;
+    duration = stopwatch.elapsedMilliseconds;
+    speed = (bytes.length / 1024 / 1024) / (duration / 1000) * 10;
+    print('Tamaño del archivo: ${(contentLength / 1024 / 1024).toStringAsFixed(2)} MB');
+    print('Tiempo de respuesta: ${duration / 1000} seg');
+    print('Velocidad de descarga: ${speed.toStringAsFixed(2)} MB/s');
+
+    setInputsDownload(speed, false);
+
+    promedio = promedio + speed;
+
+    stopwatch = Stopwatch()..start();
+    response = await http.get(Uri.parse('$url/random3000x3000.jpg?r=0'));
+    stopwatch.stop();
+    contentLength = int.parse(response.headers['content-length']!);
+    bytes = response.bodyBytes;
+    duration = stopwatch.elapsedMilliseconds;
+    speed = (bytes.length / 1024 / 1024) / (duration / 1000) * 8;
+    print('Tamaño del archivo: ${(contentLength / 1024 / 1024).toStringAsFixed(2)} MB');
+    print('Tiempo de respuesta: ${duration / 1000} seg');
+    print('Velocidad de descarga: ${speed.toStringAsFixed(2)} MB/s');
+
+    setInputsDownload(speed, false);
+
+    promedio = promedio + speed;
+
+    stopwatch = Stopwatch()..start();
+    response = await http.get(Uri.parse('$url/random2000x2000.jpg?r=0'));
+    stopwatch.stop();
+    contentLength = int.parse(response.headers['content-length']!);
+    bytes = response.bodyBytes;
+    duration = stopwatch.elapsedMilliseconds;
+    speed = (bytes.length / 1024 / 1024) / (duration / 1000) * 10;
+    print('Tamaño del archivo: ${(contentLength / 1024 / 1024).toStringAsFixed(2)} MB');
+    print('Tiempo de respuesta: ${duration / 1000} seg');
+    print('Velocidad de descarga: ${speed.toStringAsFixed(2)} MB/s');
+
+    setInputsDownload(speed, false);
+
+    promedio = promedio + speed;
+
+    stopwatch = Stopwatch()..start();
+    response = await http.get(Uri.parse('$url/random1000x1000.jpg?r=0'));
+    stopwatch.stop();
+    contentLength = int.parse(response.headers['content-length']!);
+    bytes = response.bodyBytes;
+    duration = stopwatch.elapsedMilliseconds;
+    speed = (bytes.length / 1024 / 1024) / (duration / 1000) * 10;
+    print('Tamaño del archivo: ${(contentLength / 1024 / 1024).toStringAsFixed(2)} MB');
+    print('Tiempo de respuesta: ${duration / 1000} seg');
+    print('Velocidad de descarga: ${speed.toStringAsFixed(2)} MB/s');
+
+    setInputsDownload(speed, false);
+
+    promedio = promedio + speed;
+
+    promedio = promedio / 5;
+
+    print('El promedio fué de: ${promedio}');
+
+    setInputsDownload(promedio, false);
+    setInputsDownload(promedio, true);
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    setState(() {
+      loadingDownload = false;
+      downloadDone = true;
+    });
+
+    await _testUploadSpeed4();
+  }
+
+  Future<void> _testUploadSpeed4() async {
+    setState(() {
+      loadingUpload = true;
+    });
+
+    double promedio = 0;
+
+    String url = 'https://rtatel.cbluna-dev.com/daliapp/speedtest/upload/v2';
+
+    var fileBytes = await rootBundle.load('assets/RiveAssets/GigOmeter.riv');
+    final byteBuffer = fileBytes.buffer;
+    final uint8ListFile = Uint8List.view(byteBuffer);
+
+    var request = http.MultipartRequest("POST", Uri.parse(url));
+    request.files.add(http.MultipartFile.fromBytes('file', uint8ListFile));
+    request.headers.addAll({});
+
+    // LLamado 1
+    var stopwatch = Stopwatch()..start();
+    await request.send();
+    stopwatch.stop();
+    var contentLength = request.contentLength;
+    var duration = stopwatch.elapsedMilliseconds;
+    var speed = (contentLength / 1024 / 1024) / (duration / 1000) * 10;
+    print('----Tamaño del archivo: ${(contentLength / 1024 / 1024).toStringAsFixed(2)} MB');
+    print('----Tiempo de carga: ${duration / 1000} seg');
+    print('----Velocidad de carga: ${speed.toStringAsFixed(2)} MB/s');
+
+    await Future.delayed(const Duration(milliseconds: 1000));
+    setInputsUpload(speed, false);
+
+    promedio = promedio + speed;
+
+    // LLamado 2
+    var request2 = http.MultipartRequest("POST", Uri.parse(url));
+    request.files.add(http.MultipartFile.fromBytes('file', uint8ListFile));
+    request.headers.addAll({});
+    stopwatch = Stopwatch()..start();
+    await request2.send();
+    stopwatch.stop();
+    duration = stopwatch.elapsedMilliseconds;
+    speed = (contentLength / 1024 / 1024) / (duration / 1000) * 10;
+    print('----Tamaño del archivo: ${(contentLength / 1024 / 1024).toStringAsFixed(2)} MB');
+    print('----Tiempo de carga: ${duration / 1000} seg');
+    print('----Velocidad de carga: ${speed.toStringAsFixed(2)} MB/s');
+
+    await Future.delayed(const Duration(milliseconds: 1000));
+    setInputsUpload(speed, false);
+
+    promedio = promedio + speed;
+
+    // LLamado 3
+    var request3 = http.MultipartRequest("POST", Uri.parse(url));
+    request.files.add(http.MultipartFile.fromBytes('file', uint8ListFile));
+    request.headers.addAll({});
+    stopwatch = Stopwatch()..start();
+    await request3.send();
+    stopwatch.stop();
+    duration = stopwatch.elapsedMilliseconds;
+    speed = (contentLength / 1024 / 1024) / (duration / 1000) * 10;
+    print('----Tamaño del archivo: ${(contentLength / 1024 / 1024).toStringAsFixed(2)} MB');
+    print('----Tiempo de carga: ${duration / 1000} seg');
+    print('----Velocidad de carga: ${speed.toStringAsFixed(2)} MB/s');
+
+    await Future.delayed(const Duration(milliseconds: 1000));
+    setInputsUpload(speed, false);
+
+    promedio = promedio + speed;
+
+    // LLamado 4
+    var request4 = http.MultipartRequest("POST", Uri.parse(url));
+    request.files.add(http.MultipartFile.fromBytes('file', uint8ListFile));
+    request.headers.addAll({});
+    stopwatch = Stopwatch()..start();
+    await request4.send();
+    stopwatch.stop();
+    duration = stopwatch.elapsedMilliseconds;
+    speed = (contentLength / 1024 / 1024) / (duration / 1000) * 10;
+    print('----Tamaño del archivo: ${(contentLength / 1024 / 1024).toStringAsFixed(2)} MB');
+    print('----Tiempo de carga: ${duration / 1000} seg');
+    print('----Velocidad de carga: ${speed.toStringAsFixed(2)} MB/s');
+
+    await Future.delayed(const Duration(milliseconds: 1000));
+    setInputsUpload(speed, false);
+
+    promedio = promedio + speed;
+
+    // LLamado 5
+    var request5 = http.MultipartRequest("POST", Uri.parse(url));
+    request.files.add(http.MultipartFile.fromBytes('file', uint8ListFile));
+    request.headers.addAll({});
+    stopwatch = Stopwatch()..start();
+    await request5.send();
+    stopwatch.stop();
+    duration = stopwatch.elapsedMilliseconds;
+    speed = (contentLength / 1024 / 1024) / (duration / 1000) * 10;
+    print('----Tamaño del archivo: ${(contentLength / 1024 / 1024).toStringAsFixed(2)} MB');
+    print('----Tiempo de carga: ${duration / 1000} seg');
+    print('----Velocidad de carga: ${speed.toStringAsFixed(2)} MB/s');
+
+    await Future.delayed(const Duration(milliseconds: 1000));
+    setInputsUpload(speed, false);
+
+    promedio = promedio + speed;
+
+    promedio = promedio / 5;
+    await Future.delayed(const Duration(milliseconds: 1000));
+    setInputsUpload(promedio, false);
+    setInputsUpload(promedio, true);
+    setInputLoading(true);
+
+    setState(() {
+      loadingUpload = false;
+    });
+  }
+
+  Future<void> _testSpeed() async {
+    browser = await puppeteer.connect(
+      browserUrl: 'https://rtatel.cbluna-dev.com/',
+      slowMo: Duration(seconds: 5),
+    );
+
+    final page = await browser.newPage();
+
+    await page.goto('http://localhost:8080/Speed-Test/index.html');
+
+    final starButton = await page.$('.startButton');
+
+    await starButton.click();
+
+    await Future.delayed(Duration(seconds: 5));
+
+    await browser.close();
+  }
+
 /* -------------------------------------------------------------------------------- */
 
+  Uri createTestUrl(Server server, String file) {
+    return Uri.parse(
+      Uri.parse(server.url).toString().replaceAll('upload.php', file),
+    );
+  }
+
+  List<String> generateDownloadUrls(
+    Server server,
+    int retryCount,
+    List<FileSize> downloadSizes,
+  ) {
+    final downloadUriBase = createTestUrl(server, 'random{0}x{0}.jpg?r={1}');
+    final result = <String>[];
+    for (final ds in downloadSizes) {
+      for (var i = 0; i < retryCount; i++) {
+        result.add(
+          downloadUriBase.toString().replaceAll('%7B0%7D', FILE_SIZE_MAPPING[ds].toString()).replaceAll('%7B1%7D', i.toString()),
+        );
+      }
+    }
+    return result;
+  }
+
+/*  Future<void> _testDownloadSpeed3() async {
+    setState(() {
+      downloadDone = false;
+      loadingDownload = true;
+    });
+    setInputsDownload(0, false);
+    setInputLoading(false);
+
+    double promedio = 0;
+
+    try {
+      for (var i = 0; i < 2; i++) {
+        final testData = generateDownloadUrls(bestServersList[0], 1, defaultDownloadSizes);
+        final stopwatches = <Stopwatch>[
+          Stopwatch(),
+          Stopwatch(),
+          Stopwatch(),
+          Stopwatch(),
+          Stopwatch(),
+          Stopwatch(),
+        ];
+
+        stopwatches[0].start();
+        stopwatches[1].start();
+        stopwatches[2].start();
+        stopwatches[3].start();
+        stopwatches[4].start();
+        stopwatches[5].start();
+
+        await Future.wait([
+          http.get(Uri.parse(testData[0])).then((value) {
+            stopwatches[0].stop();
+            print(stopwatches[0].elapsedMilliseconds);
+            downloadRate = (value.bodyBytes.length * 8 / 1024) / (stopwatches[0].elapsedMilliseconds / 1000) / 1000;
+            promedio = promedio + downloadRate;
+            setInputsDownload(downloadRate, false);
+          }),
+          http.get(Uri.parse(testData[1])).then((value) {
+            stopwatches[1].stop();
+            print(stopwatches[1].elapsedMilliseconds);
+            downloadRate = (value.bodyBytes.length * 8 / 1024) / (stopwatches[1].elapsedMilliseconds / 1000) / 1000;
+            promedio = promedio + downloadRate;
+            setInputsDownload(downloadRate, false);
+          }),
+          http.get(Uri.parse(testData[2])).then((value) {
+            stopwatches[2].stop();
+            print(stopwatches[2].elapsedMilliseconds);
+            downloadRate = (value.bodyBytes.length * 8 / 1024) / (stopwatches[2].elapsedMilliseconds / 1000) / 1000;
+            promedio = promedio + downloadRate;
+            setInputsDownload(downloadRate, false);
+          }),
+          http.get(Uri.parse(testData[3])).then((value) {
+            stopwatches[3].stop();
+            print(stopwatches[3].elapsedMilliseconds);
+            downloadRate = (value.bodyBytes.length * 8 / 1024) / (stopwatches[3].elapsedMilliseconds / 1000) / 1000;
+            promedio = promedio + downloadRate;
+            setInputsDownload(downloadRate, false);
+          }),
+          http.get(Uri.parse(testData[4])).then((value) {
+            stopwatches[4].stop();
+            print(stopwatches[4].elapsedMilliseconds);
+            downloadRate = (value.bodyBytes.length * 8 / 1024) / (stopwatches[4].elapsedMilliseconds / 1000) / 1000;
+            promedio = promedio + downloadRate;
+            setInputsDownload(downloadRate, false);
+          }),
+          http.get(Uri.parse(testData[5])).then((value) {
+            stopwatches[5].stop();
+            print(stopwatches[5].elapsedMilliseconds);
+            downloadRate = (value.bodyBytes.length * 8 / 1024) / (stopwatches[5].elapsedMilliseconds / 1000) / 1000;
+            promedio = promedio + downloadRate;
+            setInputsDownload(downloadRate, false);
+          }),
+        ]);
+      }
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
+
+    setState(() {
+      downloadRate = promedio / 12;
+    });
+
+    setInputsDownload(downloadRate, false);
+    setInputsDownload(downloadRate, true);
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    setState(() {
+      loadingDownload = false;
+      downloadDone = true;
+    });
+
+    _testUploadSpeed();
+  }
+ */
 /*   Future<void> _testDownloadSpeed2() async {
     setState(() {
       downloadDone = false;
@@ -219,6 +583,7 @@ class _GigometerState extends State<Gigometer> {
   Future<void> setInputsDownload(double speedValue, bool exitValue) async {
     if (artboardRive != null) {
       setState(() {
+        downloadRate = speedValue.toDouble();
         speed!.change(speedValue.toDouble());
         exitDownload!.change(exitValue);
       });
@@ -228,6 +593,7 @@ class _GigometerState extends State<Gigometer> {
   Future<void> setInputsUpload(double speedValue, bool exitValue) async {
     if (artboardRive != null) {
       setState(() {
+        uploadRate = speedValue.toDouble();
         speed!.change(speedValue.toDouble());
         exitUpload!.change(exitValue);
       });
@@ -248,8 +614,6 @@ class _GigometerState extends State<Gigometer> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setBestServers();
-      /* _testDownloadSpeed();
-      _testUploadSpeed(); */
     });
     super.initState();
 
@@ -258,8 +622,7 @@ class _GigometerState extends State<Gigometer> {
 
       final _artboard = file.mainArtboard;
 
-      stateMachineController =
-          StateMachineController.fromArtboard(_artboard, 'State Machine 1');
+      stateMachineController = StateMachineController.fromArtboard(_artboard, 'State Machine 1');
 
       if (stateMachineController != null) {
         _artboard.addController(stateMachineController!);
@@ -287,8 +650,7 @@ class _GigometerState extends State<Gigometer> {
 
       final _artboard = file.mainArtboard;
 
-      stateMachineLoadingController =
-          StateMachineController.fromArtboard(_artboard, 'State Machine 1');
+      stateMachineLoadingController = StateMachineController.fromArtboard(_artboard, 'State Machine 1');
 
       if (stateMachineLoadingController != null) {
         _artboard.addController(stateMachineLoadingController!);
@@ -368,7 +730,7 @@ class _GigometerState extends State<Gigometer> {
                                   exitDownload!.change(false);
                                   exitUpload!.change(false);
                                 });
-                                await _testDownloadSpeed();
+                                await _testSpeed();
                               },
                       )
                     : PrimaryButton(
@@ -389,7 +751,7 @@ class _GigometerState extends State<Gigometer> {
                                   exitUpload!.change(false);
                                 });
 
-                                await _testDownloadSpeed();
+                                await _testSpeed();
                               },
                         text: 'Retry',
                       ),

@@ -42,14 +42,14 @@ class SpeedTestDart {
       try {
         // final resp = await http.get(Uri.parse(element));
 
-//   <server url="https://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="34.0500" lon="-118.2500" name="Fallas, TX" country="United States" cc="US" sponsor="Rural Telecommunications of America, Inc." id="18401"  host="dalspeedtest.rtatel.com:8080" />
-// <server url=" http://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="32.5308" lon="-117.0200" name="Tijuana" country="Mexico" cc="MX" sponsor="Totalplay" id="3955"  host="tijuana.speedtest.totalplay.com.mx:8080" />
+// <server url="http://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="34.0500" lon="-118.2500" name="Fallas, TX" country="United States" cc="US" sponsor="Rural Telecommunications of America, Inc." id="18401"  host="dalspeedtest.rtatel.com:8080" />
+// <server url="http://tijuana.speedtest.totalplay.com.mx:8080/speedtest/upload.php" lat="32.5308" lon="-117.0200" name="Tijuana" country="Mexico" cc="MX" sponsor="Totalplay" id="3955"  host="tijuana.speedtest.totalplay.com.mx:8080" />
         serversConfig = ServersList.fromXMLElement(
           XmlDocument.from('''
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
     <servers>
-        <server url="http://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="34.0500" lon="-118.2500" name="Fallas, TX" country="United States" cc="US" sponsor="Rural Telecommunications of America, Inc." id="18401"  host="dalspeedtest.rtatel.com:8080" />
+        <server url="http://dalspeedtest.rtatel.com:8080/speedtest/upload.php" lat="000.0000" lon="000.0000" name="Fallas, TX" country="United States" cc="US" sponsor="Rural Telecommunications of America, Inc." id="18401"  host="dalspeedtest.rtatel.com:8080" />
     </servers>
 </settings>
 ''')?.getElement('settings'),
@@ -142,7 +142,7 @@ class SpeedTestDart {
   /// Returns [double] downloaded speed in MB/s.
   Future<double> testDownloadSpeed({
     required List<Server> servers,
-    int simultaneousDownloads = 1,
+    int simultaneousDownloads = 3,
     int retryCount = 1,
     List<FileSize> downloadSizes = defaultDownloadSizes,
   }) async {
@@ -167,7 +167,13 @@ class SpeedTestDart {
         });
         stopwatch.stop();
         final _totalSize = tasks.reduce((a, b) => a + b);
-        downloadSpeed = (_totalSize * 8 / 1024) / (stopwatch.elapsedMilliseconds / 1000) / 1000;
+        // Opcion 1. downloadSpeed = (_totalSize * 8) / (stopwatch.elapsedMilliseconds) / 1000;
+        // Opcion 2. downloadSpeed = (_totalSize * 8 / 1024) / (stopwatch.elapsedMilliseconds / 1000) / 1000;
+        // opcion 3. downloadSpeed = (_totalSize) / (stopwatch.elapsedMilliseconds * 8000);
+        // opcion 4. downloadSpeed = (_totalSize) / (stopwatch.elapsedMilliseconds / 1000) / pow(10, 6);
+        // opcion 5. downloadSpeed = (_totalSize * 8 / 1024) / (stopwatch.elapsedMilliseconds / 1000) / 1000; //default
+        // Opcion 6. downloadSpeed = (((_totalSize * 8) / 1000) / 1000) / stopwatch.elapsedMilliseconds;
+        downloadSpeed = (_totalSize * 10 / 1024) / (stopwatch.elapsedMilliseconds / 1000) / 1000; //default
         break;
       } catch (_) {
         continue;
@@ -202,7 +208,7 @@ class SpeedTestDart {
         });
         stopwatch.stop();
         final _totalSize = tasks.reduce((a, b) => a + b);
-        uploadSpeed = (_totalSize * 8 / 1024) / (stopwatch.elapsedMilliseconds / 1000) / 1000;
+        uploadSpeed = (_totalSize * 10 / 1024) / (stopwatch.elapsedMilliseconds / 1000) / 1000;
         break;
       } catch (_) {
         continue;
