@@ -24,7 +24,7 @@ class GraphQLConfiguration {
   }
 }
 
-setPath(String? path) {
+String setPath(String? path) {
   if (path != null) {
     return strapiUrl + path;
   } else {

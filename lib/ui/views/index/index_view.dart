@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:speed_test/services/index_query.dart';
 import 'package:speed_test/ui/views/index/car_picture_widget.dart';
 import 'package:speed_test/ui/views/index/carousel/carousel_widget.dart';
@@ -16,7 +17,7 @@ class IndexView extends StatelessWidget {
     return DataCall(query: queryIndex, page: viewIndex);
   }
 
-  Widget viewIndex(result, context) {
+  Widget viewIndex(QueryResult result, BuildContext context) {
     var viewData = result.data?['appGigometer']['data']['attributes'];
 
     // Title
@@ -38,7 +39,10 @@ class IndexView extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.only(
-                top: padding, left: padding, right: padding),
+              top: padding,
+              left: padding,
+              right: padding,
+            ),
             width: double.infinity,
             constraints: BoxConstraints(
                 maxWidth: mobile(context)
@@ -47,12 +51,15 @@ class IndexView extends StatelessWidget {
                         ? screenSize(context).width * 0.4
                         : 550),
             child: FittedBox(
-              child: Text(viewTitle,
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.plusJakartaSans(
-                      color: Colors.white,
-                      letterSpacing: -1,
-                      fontWeight: FontWeight.w800)),
+              child: Text(
+                viewTitle,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.plusJakartaSans(
+                  color: Colors.white,
+                  letterSpacing: -1,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
             ),
           ),
           Wrap(
@@ -64,18 +71,22 @@ class IndexView extends StatelessWidget {
               Visibility(
                 visible: !mobile(context),
                 child: FractionallySizedBox(
-                    widthFactor: mobile(context) ? 1.0 : 0.3,
-                    child: CarImage(url: zaneTruckImg)),
+                  widthFactor: mobile(context) ? 1.0 : 0.3,
+                  child: CarImage(url: zaneTruckImg),
+                ),
               ),
               FractionallySizedBox(
-                  widthFactor: mobile(context) ? 1.0 : 0.4,
-                  child: const Gigometer()),
+                widthFactor: mobile(context) ? 1.0 : 0.4,
+                child: const Gigometer(),
+              ),
               FractionallySizedBox(
-                  widthFactor: mobile(context) ? 0.80 : 0.3,
-                  child: CarouselPromos(
-                      title: promosTitle,
-                      items: promosData,
-                      icons: promosIcons))
+                widthFactor: mobile(context) ? 0.80 : 0.3,
+                child: CarouselPromos(
+                  title: promosTitle,
+                  items: promosData,
+                  icons: promosIcons,
+                ),
+              )
             ],
           ),
         ],

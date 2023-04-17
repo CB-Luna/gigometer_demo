@@ -1,5 +1,3 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -13,7 +11,6 @@ import 'package:speed_test_dart/enums/file_size.dart';
 import '../../../modified_speed_test_dart.dart';
 import '../../../services/resolution.dart';
 
-// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 
 class Gigometer extends StatefulWidget {
@@ -61,7 +58,10 @@ class _GigometerState extends State<Gigometer> {
     double promedio = 0;
 
     for (var i = 0; i < 20; i++) {
-      downloadRate = await tester.testDownloadSpeed(servers: bestServersList, downloadSizes: fileSize);
+      downloadRate = await tester.testDownloadSpeed(
+        servers: bestServersList,
+        downloadSizes: fileSize,
+      );
 
       promedio = promedio + downloadRate;
 
@@ -258,7 +258,8 @@ class _GigometerState extends State<Gigometer> {
 
       final _artboard = file.mainArtboard;
 
-      stateMachineController = StateMachineController.fromArtboard(_artboard, 'State Machine 1');
+      stateMachineController =
+          StateMachineController.fromArtboard(_artboard, 'State Machine 1');
 
       if (stateMachineController != null) {
         _artboard.addController(stateMachineController!);
@@ -286,7 +287,8 @@ class _GigometerState extends State<Gigometer> {
 
       final _artboard = file.mainArtboard;
 
-      stateMachineLoadingController = StateMachineController.fromArtboard(_artboard, 'State Machine 1');
+      stateMachineLoadingController =
+          StateMachineController.fromArtboard(_artboard, 'State Machine 1');
 
       if (stateMachineLoadingController != null) {
         _artboard.addController(stateMachineLoadingController!);
@@ -322,7 +324,13 @@ class _GigometerState extends State<Gigometer> {
             ),
             FractionallySizedBox(
               widthFactor: 0.325,
-              child: RateIndicator(isActive: loadingUpload, isDone: (downloadDone && readyToTest && !loadingUpload), isDownload: false, rateValue: uploadRate, bgColor: Colors.blue),
+              child: RateIndicator(
+                isActive: loadingUpload,
+                isDone: (downloadDone && readyToTest && !loadingUpload),
+                isDownload: false,
+                rateValue: uploadRate,
+                bgColor: Colors.blue,
+              ),
             ),
           ],
         ),
@@ -372,7 +380,6 @@ class _GigometerState extends State<Gigometer> {
                                 if (!readyToTest || bestServersList.isEmpty) {
                                   return;
                                 }
-
                                 setState(() {
                                   downloadDone = false;
                                   downloadRate = 0;
