@@ -87,7 +87,7 @@ class GigometerProvider extends ChangeNotifier {
     artboardLoadingRive = artboard;
   }
 
-  Future<void> setRootBundle() async {
+  Future<void> loadAssets() async {
     await loadGigometerAsset();
     await loadCarAsset();
     notifyListeners();
@@ -133,7 +133,7 @@ class GigometerProvider extends ChangeNotifier {
 
     double promedio = 0;
 
-    for (var i = 0; i < 30; i++) {
+    for (var i = 0; i < 20; i++) {
       uploadRate = await tester.testUploadSpeed(servers: bestServersList);
 
       promedio = promedio + uploadRate;
@@ -142,7 +142,7 @@ class GigometerProvider extends ChangeNotifier {
       await setInputsUpload(uploadRate, false);
     }
 
-    uploadRate = promedio / 30;
+    uploadRate = promedio / 20;
 
     await setInputsUpload(uploadRate, false);
     await setInputsUpload(uploadRate, true);
@@ -150,6 +150,8 @@ class GigometerProvider extends ChangeNotifier {
     await setInputLoading(true);
 
     loadingUpload = false;
+
+    notifyListeners();
   }
 
 /*   Future<void> _testDownloadSpeed2() async {

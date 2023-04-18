@@ -48,7 +48,7 @@ class SpeedTestDart {
             <?xml version="1.0" encoding="UTF-8"?>
             <settings>
                 <servers>
-                    <server url="http://gigometer43.rtatel.com/OpenSpeedTest/index.html" lat="34.0500" lon="-118.2500" name="Dallas, TX" country="United States" cc="US" sponsor="Rural Telecommunications of America, Inc." id="18401"  host="gigometer43.rtatel.com:80" />
+                    <server url="http://gigometer43.rtatel.com/OpenSpeedTest/downloading?n=0.4124195689295491" lat="34.0500" lon="-118.2500" name="Dallas, TX" country="United States" cc="US" sponsor="Rural Telecommunications of America, Inc." id="18401"  host="gigometer43.rtatel.com:80" />
                 </servers>
             </settings>
             ''')?.getElement('settings'),

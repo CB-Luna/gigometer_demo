@@ -23,9 +23,7 @@ class _GigometerState extends State<Gigometer> {
         listen: false,
       );
       await provider.setBestServers();
-      await provider.setRootBundle();
-      /* _testDownloadSpeed();
-      _testUploadSpeed(); */
+      await provider.loadAssets();
     });
     super.initState();
   }
