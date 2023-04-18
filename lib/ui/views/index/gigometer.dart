@@ -22,7 +22,6 @@ class _GigometerState extends State<Gigometer> {
         context,
         listen: false,
       );
-      await provider.setBestServers();
       await provider.loadAssets();
     });
     super.initState();
@@ -86,8 +85,7 @@ class _GigometerState extends State<Gigometer> {
                         onPressed: provider.loadingDownload
                             ? null
                             : () async {
-                                if (!provider.readyToTest ||
-                                    provider.bestServersList.isEmpty) {
+                                if (!provider.readyToTest) {
                                   return;
                                 }
 
@@ -95,7 +93,7 @@ class _GigometerState extends State<Gigometer> {
                                 provider.exitDownload!.change(false);
                                 provider.exitUpload!.change(false);
 
-                                await provider.testDownloadSpeed();
+                                await provider.getSpeeds();
                               },
                       )
                     : PrimaryButton(
@@ -104,8 +102,7 @@ class _GigometerState extends State<Gigometer> {
                         onPressed: provider.loadingUpload
                             ? null
                             : () async {
-                                if (!provider.readyToTest ||
-                                    provider.bestServersList.isEmpty) {
+                                if (!provider.readyToTest) {
                                   return;
                                 }
 
@@ -116,15 +113,15 @@ class _GigometerState extends State<Gigometer> {
                                 provider.exitDownload!.change(false);
                                 provider.exitUpload!.change(false);
 
-                                await provider.testDownloadSpeed();
+                                await provider.getSpeeds();
                               },
                         text: 'Retry',
                       ),
                 PrimaryButton(
                   text: 'Stop',
                   isActive: provider.readyToTest && !provider.loadingDownload,
-                  onPressed: () async {
-                    await provider.setInputsDownload(0, true);
+                  onPressed: () {
+                    provider.setInputsDownload(0, true);
                   },
                 ),
               ],

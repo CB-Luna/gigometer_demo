@@ -1,16 +1,14 @@
+import 'dart:async';
+import 'dart:math';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rive/rive.dart';
-import 'package:speed_test/modified_speed_test_dart.dart';
-import 'package:speed_test_dart/classes/server.dart';
-import 'package:speed_test_dart/enums/file_size.dart';
+import 'package:speed_test/helpers/constants.dart';
+import 'package:speed_test/helpers/globals.dart';
 
 class GigometerProvider extends ChangeNotifier {
-  SpeedTestDart tester = SpeedTestDart();
-  List<Server> bestServersList = [];
-  List<FileSize> fileSize = [FileSize.SIZE_3000];
-  bool encendido = false;
-
   double downloadRate = 0;
   double uploadRate = 0;
 
@@ -29,16 +27,9 @@ class GigometerProvider extends ChangeNotifier {
   StateMachineController? stateMachineLoadingController;
   SMIInput<bool>? exitLoading;
 
-  Future<void> setBestServers() async {
-    final settings = await tester.getSettings();
-    final servers = settings.servers;
-
-    bestServersList = await tester.getBestServers(servers: servers);
-
-    readyToTest = true;
-
-    notifyListeners();
-  }
+  final Random randomGenerator = Random();
+  List<double> downloadSpeedsList = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+  Timer? timer;
 
   Future<void> loadGigometerAsset() async {
     final ByteData data =
@@ -62,7 +53,7 @@ class GigometerProvider extends ChangeNotifier {
       exitDownload!.change(true);
       exitUpload!.change(true);
 
-      await setInputsUpload(uploadRate, true);
+      setInputsUpload(uploadRate, true);
     }
 
     artboardRive = artboard;
@@ -90,33 +81,77 @@ class GigometerProvider extends ChangeNotifier {
   Future<void> loadAssets() async {
     await loadGigometerAsset();
     await loadCarAsset();
+    readyToTest = true;
     notifyListeners();
+  }
+
+  Future<void> getSpeeds() async {
+    await testDownloadSpeed();
+    await testUploadSpeed();
+  }
+
+  Future<void> stopTest() async {}
+
+  double getAverageSpeed(List<double> speeds) {
+    double average = 0.0;
+    for (var speed in speeds) {
+      average += speed;
+    }
+    return average;
+  }
+
+  void startTimer() {
+    timer = Timer.periodic(const Duration(milliseconds: 500), (Timer t) {
+      downloadRate = getAverageSpeed(downloadSpeedsList);
+      setInputsDownload(downloadRate, false);
+    });
   }
 
   Future<void> testDownloadSpeed() async {
     downloadDone = false;
     loadingDownload = true;
-    await setInputsDownload(0, false);
-    await setInputLoading(false);
+    setInputsDownload(0, false);
+    setInputLoading(false);
 
-    double promedio = 0;
+    final cancelToken = CancelToken();
 
-    for (var i = 0; i < 20; i++) {
-      downloadRate = await tester.testDownloadSpeed(
-        servers: bestServersList,
-        downloadSizes: fileSize,
-      );
+    startTimer();
 
-      promedio = promedio + downloadRate;
+    var stopwatch = Stopwatch()..start();
+    for (var i = 0; i < 6; i++) {
+      final randomDouble = randomGenerator.nextDouble().toStringAsFixed(16);
+      dio
+          .get(
+            '$serverUrl/downloading?n=$randomDouble',
+            cancelToken: cancelToken,
+            onReceiveProgress: (actualBytes, totalBytes) async {
+              //Se convierten bytes a bits, luego a megabits y luego a Mbps
+              downloadSpeedsList[i] = ((actualBytes * 8) / 1000000) /
+                  (stopwatch.elapsed.inMilliseconds / 1000);
+            },
+          )
+          .then<Response<dynamic>?>((value) => null)
+          .catchError((err) async {
+            if (CancelToken.isCancel(err)) {
+              print('Request canceled: ${err.message}');
+            } else {
+              print(err);
+            }
+            return null;
+          });
 
       await Future.delayed(const Duration(milliseconds: 100));
-      await setInputsDownload(downloadRate, false);
     }
 
-    downloadRate = promedio / 20;
+    while (stopwatch.elapsed.inSeconds < 15) {
+      await Future.delayed(const Duration(seconds: 1));
+    }
 
-    await setInputsDownload(downloadRate, false);
-    await setInputsDownload(downloadRate, true);
+    stopwatch.stop();
+    cancelToken.cancel('Cancelled');
+
+    downloadRate = getAverageSpeed(downloadSpeedsList);
+    setInputsDownload(downloadRate, true);
 
     await Future.delayed(const Duration(seconds: 2));
 
@@ -124,8 +159,6 @@ class GigometerProvider extends ChangeNotifier {
     downloadDone = true;
 
     notifyListeners();
-
-    await testUploadSpeed();
   }
 
   Future<void> testUploadSpeed() async {
@@ -133,114 +166,26 @@ class GigometerProvider extends ChangeNotifier {
 
     double promedio = 0;
 
-    for (var i = 0; i < 20; i++) {
-      uploadRate = await tester.testUploadSpeed(servers: bestServersList);
-
+    for (var i = 0; i < 6; i++) {
       promedio = promedio + uploadRate;
 
-      await Future.delayed(const Duration(milliseconds: 100));
-      await setInputsUpload(uploadRate, false);
+      Future.delayed(const Duration(milliseconds: 100));
+      setInputsUpload(uploadRate, false);
     }
 
     uploadRate = promedio / 20;
 
-    await setInputsUpload(uploadRate, false);
-    await setInputsUpload(uploadRate, true);
+    setInputsUpload(uploadRate, false);
+    setInputsUpload(uploadRate, true);
 
-    await setInputLoading(true);
+    setInputLoading(true);
 
     loadingUpload = false;
 
     notifyListeners();
   }
 
-/*   Future<void> _testDownloadSpeed2() async {
-    setState(() {
-      downloadDone = false;
-      loadingDownload = true;
-    });
-
-    double promedio = 0;
-
-    final stopwatch = Stopwatch()..start();
-    final tasks = <int>[];
-
-    for (var i = 0; i < 10; i++) {
-      double rndm = Random().nextDouble() * 1.1000000000000000;
-      var response = await http.get(
-        Uri.parse(
-          'https://rtatel.cbluna-dev.com/downloading?n=$rndm',
-        ),
-      );
-      tasks.add(response.bodyBytes.length);
-      final _totalSize = tasks.reduce((a, b) => a + b);
-
-      setState(() {
-        downloadRate = (_totalSize * 8 / 1024) / (stopwatch.elapsedMilliseconds / 1000) / 1000;
-      });
-      setInputsDownload(downloadRate, false);
-
-      promedio = promedio + downloadRate;
-    }
-
-    setState(() {
-      uploadRate = promedio / 20;
-    });
-
-    setInputsUpload(uploadRate, false);
-    setInputsUpload(uploadRate, true);
-
-    await Future.delayed(const Duration(seconds: 2));
-
-    setState(() {
-      loadingDownload = false;
-      downloadDone = true;
-    });
-
-    _testUploadSpeed2();
-  }
- */
-/*   Future<void> _testUploadSpeed2() async {
-    setState(() {
-      loadingUpload = true;
-    });
-
-    double promedio = 0;
-
-    final stopwatch = Stopwatch()..start();
-    final tasks = <int>[];
-
-    for (var i = 0; i < 10; i++) {
-      double rndm = Random().nextDouble() * 1.1000000000000000;
-      var response = await http.post(
-        Uri.parse(
-          'https://rtatel.cbluna-dev.com/upload?n=$rndm',
-        ),
-      );
-
-      tasks.add(response.bodyBytes.length);
-      final _totalSize = tasks.reduce((a, b) => a + b);
-      setState(() {
-        uploadRate = (_totalSize * 8 / 1024) / (stopwatch.elapsedMilliseconds / 1000) / 1000;
-      });
-
-      promedio = promedio + uploadRate;
-
-      setInputsUpload(uploadRate, false);
-    }
-
-    setInputsUpload(uploadRate, true);
-
-    setInputLoading(true);
-
-    setState(() {
-      uploadRate = promedio / 10;
-      loadingUpload = false;
-    });
-  }
- */
-
-  Future<void> setInputsDownload(double speedValue, bool exitValue) async {
+  void setInputsDownload(double speedValue, bool exitValue) {
     if (artboardRive != null) {
       speed!.change(speedValue.toDouble());
       exitDownload!.change(exitValue);
@@ -248,7 +193,7 @@ class GigometerProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> setInputsUpload(double speedValue, bool exitValue) async {
+  void setInputsUpload(double speedValue, bool exitValue) {
     if (artboardRive != null) {
       speed!.change(speedValue.toDouble());
       exitUpload!.change(exitValue);
@@ -256,10 +201,16 @@ class GigometerProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> setInputLoading(bool exit) async {
+  void setInputLoading(bool exit) {
     if (artboardLoadingRive != null) {
       exitLoading!.change(exit);
       notifyListeners();
     }
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 }
