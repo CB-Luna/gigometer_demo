@@ -97,6 +97,7 @@ class _GigometerState extends State<Gigometer> {
                               },
                       )
                     : PrimaryButton(
+                        text: 'Retry',
                         isActive: provider.readyToTest,
                         bgColor: Colors.blue,
                         onPressed: provider.loadingUpload
@@ -105,17 +106,8 @@ class _GigometerState extends State<Gigometer> {
                                 if (!provider.readyToTest) {
                                   return;
                                 }
-
-                                provider.downloadDone = false;
-                                provider.downloadRate = 0;
-                                provider.uploadRate = 0;
-                                provider.speed!.change(0);
-                                provider.exitDownload!.change(false);
-                                provider.exitUpload!.change(false);
-
-                                await provider.getSpeeds();
+                                await provider.retry();
                               },
-                        text: 'Retry',
                       ),
                 PrimaryButton(
                   text: 'Stop',

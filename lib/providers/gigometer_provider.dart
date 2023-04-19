@@ -94,6 +94,22 @@ class GigometerProvider extends ChangeNotifier {
     await testUploadSpeed();
   }
 
+  Future<void> retry() async {
+    downloadDone = false;
+    downloadRate = 0;
+    uploadRate = 0;
+    speed!.change(0);
+    exitDownload!.change(false);
+    exitUpload!.change(false);
+
+    downloadSpeedsList = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+    uploadSpeedsList = [];
+    downloadRate = 0;
+    uploadRate = 0;
+
+    await getSpeeds();
+  }
+
   Future<void> stopTest() async {}
 
   double getTotalSpeed(List<double> speeds) {
