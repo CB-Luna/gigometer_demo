@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'dart:math';
+import 'dart:math' hide log;
+import 'dart:developer' show log;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rive/rive.dart';
-import 'package:http_parser/http_parser.dart';
 
 import 'package:speed_test/helpers/constants.dart';
 import 'package:speed_test/helpers/globals.dart';
@@ -96,7 +96,7 @@ class GigometerProvider extends ChangeNotifier {
 
   Future<void> stopTest() async {}
 
-  double getAverageSpeed(List<double> speeds) {
+  double getTotalSpeed(List<double> speeds) {
     double average = 0.0;
     for (var speed in speeds) {
       average += speed;
@@ -104,16 +104,21 @@ class GigometerProvider extends ChangeNotifier {
     return average;
   }
 
+  double getAverageSpeed(List<double> speeds) {
+    final speedSum = speeds.reduce((value, element) => value + element);
+    return speedSum / speeds.length; //average
+  }
+
   void startDownloadTimer() {
     downloadTimer =
         Timer.periodic(const Duration(milliseconds: 500), (Timer t) {
-      downloadRate = getAverageSpeed(downloadSpeedsList);
+      downloadRate = getTotalSpeed(downloadSpeedsList);
       setInputsDownload(downloadRate, false);
     });
   }
 
   void startUploadTimer() {
-    uploadTimer = Timer.periodic(const Duration(milliseconds: 100), (Timer t) {
+    uploadTimer = Timer.periodic(const Duration(milliseconds: 200), (Timer t) {
       uploadRate = getAverageSpeed(uploadSpeedsList);
       setInputsUpload(uploadRate, false);
     });
@@ -181,7 +186,7 @@ class GigometerProvider extends ChangeNotifier {
     cancelToken.cancel('Cancelled');
     downloadTimer?.cancel();
 
-    downloadRate = getAverageSpeed(downloadSpeedsList);
+    downloadRate = getTotalSpeed(downloadSpeedsList);
 
     await Future.delayed(const Duration(seconds: 1));
 
@@ -199,64 +204,55 @@ class GigometerProvider extends ChangeNotifier {
     setInputLoading(false);
 
     final cancelToken = CancelToken();
-    final List<bool> requestIsFinished = [
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-    ];
-    bool allRequestsFinished = false;
 
-    final List<int> data = generateRandomBytes(1 * 1000000);
+    final List<int> data = generateRandomBytes(1000000);
+
+    final group = <List<int>>[];
+    const size = 1024;
+    final groupCount = (data.length / size).ceil();
+    for (int i = 0; i < groupCount; ++i) {
+      final start = i * size;
+      group.add(data.sublist(start, min(start + size, data.length)));
+    }
+    final stream = Stream.fromIterable(group);
 
     startUploadTimer();
 
     var totalStopwatch = Stopwatch()..start();
 
-    for (var i = 0; i < 6; i++) {
+    //Se realizan las peticiones posibles en 15 segundos
+    while (totalStopwatch.elapsed.inSeconds < 15) {
       final randomDouble = randomGenerator.nextDouble().toStringAsFixed(16);
       var requestStopwatch = Stopwatch()..start();
-      dio.post(
-        '$serverUrl/upload?n=$randomDouble',
-        options: Options(
-          headers: {
-            Headers.contentTypeHeader: 'application/octet-stream',
-            Headers.contentLengthHeader: data.length,
+      try {
+        await dio.post(
+          '$serverUrl/upload?n=$randomDouble',
+          options: Options(
+            headers: {
+              Headers.contentTypeHeader: 'application/octet-stream',
+            },
+          ),
+          data: stream,
+          cancelToken: cancelToken,
+          onSendProgress: (actualBytes, totalBytes) async {
+            //Se convierten bytes a bits, luego a megabits y luego a Mbps
+            final speed = ((actualBytes * 8) / 1000000) /
+                (requestStopwatch.elapsed.inMilliseconds / 1000);
+            uploadSpeedsList.add(speed);
           },
-          requestEncoder: (request, options) {
-            return data;
-          },
-        ),
-        data: Stream.fromIterable(data.map((e) => [e])),
-        cancelToken: cancelToken,
-        onSendProgress: (actualBytes, totalBytes) async {
-          //Se convierten bytes a bits, luego a megabits y luego a Mbps
-          uploadSpeedsList[i] = ((actualBytes * 8) / 1000000) /
-              (requestStopwatch.elapsed.inMilliseconds / 1000);
-        },
-      ).then<Response<dynamic>?>((_) {
-        requestIsFinished[i] = true;
+        );
+      } catch (e) {
         requestStopwatch.stop();
-        return null;
-      }).catchError((err) async {
-        requestStopwatch.stop();
-        if (CancelToken.isCancel(err)) {
-          print('Request canceled: ${err.message}');
+        if (e is DioError) {
+          if (CancelToken.isCancel(e)) {
+            log('Request canceled: ${e.message}');
+          } else {
+            log('Error en testUploadSpeed() - $e');
+          }
         } else {
-          print(err);
+          log('Error en testUploadSpeed() - $e');
         }
-        return null;
-      });
-      await Future.delayed(const Duration(milliseconds: 10));
-    }
-
-    while (
-        totalStopwatch.elapsed.inSeconds < 15 && allRequestsFinished == false) {
-      allRequestsFinished =
-          requestIsFinished.every((element) => element == true);
-      await Future.delayed(const Duration(milliseconds: 100));
+      }
     }
 
     totalStopwatch.stop();
