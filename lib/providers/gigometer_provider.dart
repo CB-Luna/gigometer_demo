@@ -114,41 +114,56 @@ class GigometerProvider extends ChangeNotifier {
     setInputLoading(false);
 
     final cancelToken = CancelToken();
+    final List<bool> requestIsFinished = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+    ];
+    bool allRequestsFinished = false;
 
     startTimer();
 
-    var stopwatch = Stopwatch()..start();
+    var totalStopwatch = Stopwatch()..start();
     for (var i = 0; i < 6; i++) {
       final randomDouble = randomGenerator.nextDouble().toStringAsFixed(16);
-      dio
-          .get(
-            '$serverUrl/downloading?n=$randomDouble',
-            cancelToken: cancelToken,
-            onReceiveProgress: (actualBytes, totalBytes) async {
-              //Se convierten bytes a bits, luego a megabits y luego a Mbps
-              downloadSpeedsList[i] = ((actualBytes * 8) / 1000000) /
-                  (stopwatch.elapsed.inMilliseconds / 1000);
-            },
-          )
-          .then<Response<dynamic>?>((value) => null)
-          .catchError((err) async {
-            if (CancelToken.isCancel(err)) {
-              print('Request canceled: ${err.message}');
-            } else {
-              print(err);
-            }
-            return null;
-          });
-
+      var requestStopwatch = Stopwatch()..start();
+      dio.get(
+        '$serverUrl/downloading?n=$randomDouble',
+        cancelToken: cancelToken,
+        onReceiveProgress: (actualBytes, totalBytes) async {
+          //Se convierten bytes a bits, luego a megabits y luego a Mbps
+          downloadSpeedsList[i] = ((actualBytes * 8) / 1000000) /
+              (requestStopwatch.elapsed.inMilliseconds / 1000);
+        },
+      ).then<Response<dynamic>?>((_) {
+        requestIsFinished[i] = true;
+        requestStopwatch.stop();
+        return null;
+      }).catchError((err) async {
+        requestStopwatch.stop();
+        if (CancelToken.isCancel(err)) {
+          print('Request canceled: ${err.message}');
+        } else {
+          print(err);
+        }
+        return null;
+      });
       await Future.delayed(const Duration(milliseconds: 100));
     }
 
-    while (stopwatch.elapsed.inSeconds < 15) {
+    while (
+        totalStopwatch.elapsed.inSeconds < 50 && allRequestsFinished == false) {
+      allRequestsFinished =
+          requestIsFinished.every((element) => element == true);
       await Future.delayed(const Duration(seconds: 1));
     }
 
-    stopwatch.stop();
+    totalStopwatch.stop();
     cancelToken.cancel('Cancelled');
+    timer?.cancel();
 
     downloadRate = getAverageSpeed(downloadSpeedsList);
     setInputsDownload(downloadRate, true);

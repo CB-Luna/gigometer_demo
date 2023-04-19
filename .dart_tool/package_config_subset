@@ -134,10 +134,6 @@ hive
 2.12
 file:///Users/andres/.pub-cache/hosted/pub.dev/hive-2.2.3/
 file:///Users/andres/.pub-cache/hosted/pub.dev/hive-2.2.3/lib/
-html_character_entities
-2.12
-file:///Users/andres/.pub-cache/hosted/pub.dev/html_character_entities-1.0.0+1/
-file:///Users/andres/.pub-cache/hosted/pub.dev/html_character_entities-1.0.0+1/lib/
 http
 2.14
 file:///Users/andres/.pub-cache/hosted/pub.dev/http-0.13.5/
@@ -238,10 +234,6 @@ provider
 2.12
 file:///Users/andres/.pub-cache/hosted/pub.dev/provider-6.0.5/
 file:///Users/andres/.pub-cache/hosted/pub.dev/provider-6.0.5/lib/
-recursive_regex
-2.12
-file:///Users/andres/.pub-cache/hosted/pub.dev/recursive_regex-1.0.0/
-file:///Users/andres/.pub-cache/hosted/pub.dev/recursive_regex-1.0.0/lib/
 rive
 2.12
 file:///Users/andres/.pub-cache/hosted/pub.dev/rive-0.10.2/
@@ -258,10 +250,6 @@ source_span
 2.14
 file:///Users/andres/.pub-cache/hosted/pub.dev/source_span-1.9.1/
 file:///Users/andres/.pub-cache/hosted/pub.dev/source_span-1.9.1/lib/
-speed_test_dart
-2.17
-file:///Users/andres/.pub-cache/hosted/pub.dev/speed_test_dart-1.0.4+1/
-file:///Users/andres/.pub-cache/hosted/pub.dev/speed_test_dart-1.0.4+1/lib/
 stack_trace
 2.18
 file:///Users/andres/.pub-cache/hosted/pub.dev/stack_trace-1.11.0/
@@ -274,10 +262,6 @@ string_scanner
 2.18
 file:///Users/andres/.pub-cache/hosted/pub.dev/string_scanner-1.2.0/
 file:///Users/andres/.pub-cache/hosted/pub.dev/string_scanner-1.2.0/lib/
-sync
-2.12
-file:///Users/andres/.pub-cache/hosted/pub.dev/sync-0.3.0/
-file:///Users/andres/.pub-cache/hosted/pub.dev/sync-0.3.0/lib/
 term_glyph
 2.12
 file:///Users/andres/.pub-cache/hosted/pub.dev/term_glyph-1.2.1/
@@ -326,10 +310,6 @@ xml
 2.18
 file:///Users/andres/.pub-cache/hosted/pub.dev/xml-6.2.2/
 file:///Users/andres/.pub-cache/hosted/pub.dev/xml-6.2.2/lib/
-xml_parser
-2.12
-file:///Users/andres/.pub-cache/hosted/pub.dev/xml_parser-1.0.0/
-file:///Users/andres/.pub-cache/hosted/pub.dev/xml_parser-1.0.0/lib/
 speed_test
 2.19
 file:///Users/andres/Development/CB%20Luna/RTA/gigometer_demo/
