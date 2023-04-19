@@ -31,7 +31,7 @@ class GigometerProvider extends ChangeNotifier {
 
   final Random randomGenerator = Random();
   List<double> downloadSpeedsList = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
-  List<double> uploadSpeedsList = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+  List<double> uploadSpeedsList = [];
   Timer? downloadTimer;
   Timer? uploadTimer;
 
@@ -105,6 +105,7 @@ class GigometerProvider extends ChangeNotifier {
   }
 
   double getAverageSpeed(List<double> speeds) {
+    if (speeds.isEmpty) return 0.0;
     final speedSum = speeds.reduce((value, element) => value + element);
     return speedSum / speeds.length; //average
   }
