@@ -1,6 +1,0 @@
-version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
-options: "513f552c40cdb9b3617917d34e540e8493906f91e6cec2ca577e52814ddcfa3a"
-build_start_time: [1682390774, 25776863]
-build_end_time: [1682390774, 59592962]
-inputs:
-  "/Users/andres/.pub-cache/hosted/pub.dev/rive_common-0.0.2/macos/Classes/RivePlugin.swift": !private [1681524444, 364223957]
