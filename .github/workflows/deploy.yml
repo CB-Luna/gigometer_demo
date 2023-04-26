@@ -2,7 +2,6 @@
 name: Deploy Flutter Web
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["Debug"]
 
@@ -22,8 +21,24 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
+# Build Flutter App for Web (Debug Branch)
+  build:
+    name: Build Flutter Web
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: 'Debug'
+    - uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable'
+    - run: flutter pub get
+    - run: flutter test
+    - run: flutter build web
+    
   deploy:
+  # Deploy to Github Pages
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
