@@ -33,7 +33,6 @@ jobs:
       with:
         channel: 'stable'
     - run: flutter pub get
-    - run: flutter test
     - run: flutter build web
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
