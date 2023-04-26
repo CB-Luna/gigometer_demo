@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "4634372f1d8efd9c9cc88bd9f61e0e4a05832119f20d4f166289f8eae29b0e12"
+build_start_time: [1682390774, 25772094]
+build_end_time: [1682390789, 830055952]
+inputs:
+  "/Users/andres/Development/CB Luna/RTA/gigometer_demo/macos/Pods/ReachabilitySwift/Sources/Reachability.swift": [1682390768, 528877258]
