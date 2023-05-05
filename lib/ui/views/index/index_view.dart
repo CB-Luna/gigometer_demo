@@ -61,10 +61,12 @@ class IndexView extends StatelessWidget {
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  padding: mobile(context)
+                      ? const EdgeInsets.only(top: 10)
+                      : const EdgeInsets.symmetric(vertical: 15),
                   child: LinkingElement(
                     element: logoElement,
-                    constraintWidth: 200,
+                    constraintWidth: 100,
                   ),
                 ),
                 Container(
