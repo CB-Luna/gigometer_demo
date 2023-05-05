@@ -42,7 +42,9 @@ class GigometerFrame extends StatelessWidget {
           child: Material(
             color: Colors.transparent,
             child: SizedBox(
-              height: screenSize(context).height * 0.65,
+              height: mobile(context)
+                  ? (screenSize(context).height * 0.8) - 130
+                  : (screenSize(context).height * 0.75) - 150,
               width: double.infinity,
             ),
           ),
