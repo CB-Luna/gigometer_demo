@@ -66,7 +66,7 @@ class IndexView extends StatelessWidget {
                       : const EdgeInsets.symmetric(vertical: 15),
                   child: LinkingElement(
                     element: logoElement,
-                    constraintWidth: 100,
+                    constraintWidth: 85,
                   ),
                 ),
                 Container(
@@ -81,14 +81,17 @@ class IndexView extends StatelessWidget {
                           : screenSize(context).width < 1400
                               ? screenSize(context).width * 0.4
                               : 550),
-                  child: FittedBox(
-                    child: Text(
-                      viewTitle,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.plusJakartaSans(
-                        color: Colors.white,
-                        letterSpacing: -1,
-                        fontWeight: FontWeight.w800,
+                  child: FractionallySizedBox(
+                    widthFactor: mobile(context) ? 0.7 : 1,
+                    child: FittedBox(
+                      child: Text(
+                        viewTitle,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.plusJakartaSans(
+                          color: Colors.white,
+                          letterSpacing: -0.5,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
                     ),
                   ),
