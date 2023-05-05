@@ -9,13 +9,13 @@ import 'carousel_slide.dart';
 class CarouselPromos extends StatefulWidget {
   final String title;
   final dynamic items;
-  final dynamic icons;
+  final dynamic? icons;
 
   const CarouselPromos({
     Key? key,
     required this.title,
     required this.items,
-    required this.icons,
+    this.icons,
   }) : super(key: key);
 
   @override
@@ -37,7 +37,7 @@ class _CarouselPromosState extends State<CarouselPromos> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 400),
+        constraints: const BoxConstraints(maxWidth: 500),
         child: FittedBox(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -60,6 +60,7 @@ class _CarouselPromosState extends State<CarouselPromos> {
                         items: promos,
                         carouselController: _controller,
                         options: CarouselOptions(
+                          aspectRatio: 1 / 1,
                           autoPlay: true,
                           autoPlayInterval: const Duration(seconds: 5),
                           enlargeCenterPage: true,
@@ -71,23 +72,24 @@ class _CarouselPromosState extends State<CarouselPromos> {
                           },
                         )),
                   ),
-                  for (var icon in widget.icons)
-                    Positioned(
-                        top: icon == widget.icons.first ? 0 : null,
-                        right: icon != widget.icons.last &&
-                                icon != widget.icons.first
-                            ? 0
-                            : null,
-                        bottom: icon == widget.icons.last ? 0 : null,
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.75),
-                              shape: BoxShape.circle),
-                          child: Image.network(
-                              setPath(icon['attributes']['url']),
-                              width: 30),
-                        ))
+                  if (widget.icons != null)
+                    for (var icon in widget.icons)
+                      Positioned(
+                          top: icon == widget.icons.first ? 0 : null,
+                          right: icon != widget.icons.last &&
+                                  icon != widget.icons.first
+                              ? 0
+                              : null,
+                          bottom: icon == widget.icons.last ? 0 : null,
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.75),
+                                shape: BoxShape.circle),
+                            child: Image.network(
+                                setPath(icon['attributes']['url']),
+                                width: 30),
+                          ))
                 ],
               ),
               Row(

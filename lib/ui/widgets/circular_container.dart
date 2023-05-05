@@ -23,8 +23,8 @@ class CircularContainer extends StatelessWidget {
               strokeAlign: BorderSide.strokeAlignOutside)),
       child: Container(
           margin: const EdgeInsets.all(25),
-          width: 300,
-          height: 300,
+          width: 250,
+          height: 250,
           clipBehavior: Clip.antiAlias,
           alignment: Alignment.center,
           decoration: BoxDecoration(

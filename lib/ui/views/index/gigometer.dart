@@ -1,124 +1,51 @@
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:rive/rive.dart';
+import 'package:pointer_interceptor/pointer_interceptor.dart';
 
-import 'package:speed_test/providers/providers.dart';
-import 'package:speed_test/services/resolution.dart';
-import 'package:speed_test/ui/widgets/primary_button.dart';
-import 'package:speed_test/ui/widgets/rate_indicator.dart';
+import '../../../services/resolution.dart';
 
-class Gigometer extends StatefulWidget {
-  const Gigometer({super.key});
-
-  @override
-  State<Gigometer> createState() => _GigometerState();
-}
-
-class _GigometerState extends State<Gigometer> {
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      GigometerProvider provider = Provider.of<GigometerProvider>(
-        context,
-        listen: false,
-      );
-      await provider.loadAssets();
-    });
-    super.initState();
-  }
+class GigometerFrame extends StatelessWidget {
+  final String source;
+  const GigometerFrame({Key? key, required this.source}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    GigometerProvider provider = Provider.of<GigometerProvider>(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+    IFrameElement iframeElement = IFrameElement()
+      ..src = source
+      ..style.height = '100%'
+      ..style.width = '100%'
+      ..style.border = 'none'
+      ..setAttribute("allowtransparency", "true")
+      ..onLoad.listen((event) {
+        const CircularProgressIndicator();
+      });
+
+    // ignore: undefined_prefixed_name
+    ui.platformViewRegistry.registerViewFactory(
+      'webpage',
+      (int viewId) => iframeElement,
+    );
+
+    return Stack(
+      alignment: Alignment.topCenter,
       children: [
-        Wrap(
-          children: [
-            FractionallySizedBox(
-              widthFactor: 0.325,
-              child: RateIndicator(
-                isActive: provider.loadingDownload,
-                isDone: provider.downloadDone,
-                isDownload: true,
-                rateValue: provider.downloadRate,
-              ),
+        SizedBox(
+            height: mobile(context)
+                ? screenSize(context).height * 0.8
+                : screenSize(context).height * 0.75,
+            child: const HtmlElementView(viewType: 'webpage')),
+        PointerInterceptor(
+          intercepting: true,
+          debug: false,
+          child: Material(
+            color: Colors.transparent,
+            child: SizedBox(
+              height: screenSize(context).height * 0.65,
+              width: double.infinity,
             ),
-            FractionallySizedBox(
-              widthFactor: 0.325,
-              child: RateIndicator(
-                isActive: provider.loadingUpload,
-                isDone: (provider.downloadDone &&
-                    provider.readyToTest &&
-                    !provider.loadingUpload),
-                isDownload: false,
-                rateValue: provider.uploadRate,
-                bgColor: Colors.blue,
-              ),
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            FittedBox(
-              child: SizedBox(
-                height: screenSize(context).height * 0.55,
-                width: screenSize(context).height * 0.55,
-                child: provider.artboardRive == null
-                    ? const Center(child: CircularProgressIndicator())
-                    : Stack(
-                        children: [
-                          Rive(artboard: provider.artboardRive!),
-                          Rive(artboard: provider.artboardLoadingRive!),
-                        ],
-                      ),
-              ),
-            ),
-            Wrap(
-              children: [
-                !provider.downloadDone
-                    ? PrimaryButton(
-                        text: 'Start',
-                        isActive:
-                            provider.readyToTest && !provider.loadingDownload,
-                        bgColor: const Color(0xFF25CB8E),
-                        onPressed: provider.loadingDownload
-                            ? null
-                            : () async {
-                                if (!provider.readyToTest) {
-                                  return;
-                                }
-
-                                provider.speed!.change(0);
-                                provider.exitDownload!.change(false);
-                                provider.exitUpload!.change(false);
-
-                                await provider.getSpeeds();
-                              },
-                      )
-                    : PrimaryButton(
-                        text: 'Retry',
-                        isActive: provider.readyToTest,
-                        bgColor: Colors.blue,
-                        onPressed: provider.loadingUpload
-                            ? null
-                            : () async {
-                                if (!provider.readyToTest) {
-                                  return;
-                                }
-                                await provider.retry();
-                              },
-                      ),
-                PrimaryButton(
-                  text: 'Stop',
-                  isActive: provider.readyToTest && !provider.loadingDownload,
-                  onPressed: () {
-                    provider.setInputsDownload(0, true);
-                  },
-                ),
-              ],
-            ),
-          ],
+          ),
         ),
       ],
     );

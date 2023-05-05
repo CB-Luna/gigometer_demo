@@ -24,7 +24,7 @@ class DataCall extends StatelessWidget {
           fetchMore,
         }) {
           if (result.hasException) {
-            return Text(result.exception.toString());
+            return page(result, context);
           }
 
           if (result.isLoading) {

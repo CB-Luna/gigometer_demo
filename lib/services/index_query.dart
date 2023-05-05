@@ -3,6 +3,7 @@ const String queryIndex = """
  appGigometer{
   data{
     attributes{
+      ExtFrame
       Title
       Description
       PromosTitle
@@ -14,22 +15,47 @@ const String queryIndex = """
           Link
         }
       }
-      PromosIcons{
-        data{
-          attributes{
-            url
+      CarouZane{
+        Title
+          Subtitle
+          Paragraph
+          Media{
+          $mediaUrl
           }
-        }
+          Buttons{
+            Text
+            Link
+          }
       }
-      Image{
-        data{
-          attributes{
-            url
-          }
+      PromosIcons{
+       $mediaUrl
+      }
+      
+      Logo{
+        Picture{
+          $mediaUrl
         }
+        Title
+        Link
+      }
+      PromoAd{
+        Picture{
+          $mediaUrl
+        }
+        Title
+        Link
       }
     }
   }
 }
 }
+""";
+
+const String mediaUrl = """
+    data{
+      attributes{
+        url
+        alternativeText
+      }
+    }
 """;
