@@ -33,7 +33,7 @@ class GigometerFrame extends StatelessWidget {
       children: [
         SizedBox(
             height: mobile(context)
-                ? screenSize(context).height * 0.8
+                ? screenSize(context).height
                 : screenSize(context).height * 0.75,
             child: const HtmlElementView(viewType: 'webpage')),
         PointerInterceptor(
@@ -43,7 +43,7 @@ class GigometerFrame extends StatelessWidget {
             color: Colors.transparent,
             child: SizedBox(
               height: mobile(context)
-                  ? (screenSize(context).height * 0.8) - 130
+                  ? (screenSize(context).height) - 130
                   : (screenSize(context).height * 0.75) - 150,
               width: double.infinity,
             ),
