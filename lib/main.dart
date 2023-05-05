@@ -13,18 +13,8 @@ void main() {
   );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +30,10 @@ class _MyAppState extends State<MyApp> {
         body: Container(
           alignment: Alignment.center,
           decoration: const BoxDecoration(
-            gradient: RadialGradient(
-              colors: <Color>[
-                Color.fromARGB(255, 24, 74, 150),
-                Color.fromARGB(255, 21, 65, 136),
-              ],
-              center: Alignment.bottomCenter,
-              tileMode: TileMode.repeated,
-              radius: 0.25,
-            ),
-          ),
+              image: DecorationImage(
+                  alignment: Alignment.bottomCenter,
+                  fit: BoxFit.cover,
+                  image: AssetImage('/images/ondas.jpg'))),
           child: Scrollbar(
             controller: scrollController,
             thumbVisibility: true,
