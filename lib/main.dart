@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:seo/seo.dart';
 
 import 'package:speed_test/services/graphql_config.dart';
 import 'package:speed_test/ui/views/index/index_view.dart';
+
+import 'ui/widgets/seo_widgets/head_widget.dart';
 
 void main() {
   runApp(
@@ -20,27 +23,35 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light().copyWith(
-          scrollbarTheme: const ScrollbarThemeData().copyWith(
-        thumbColor: MaterialStateProperty.all(Colors.white.withOpacity(0.3)),
-      )),
-      home: Scaffold(
-        body: Container(
-          alignment: Alignment.center,
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  alignment: Alignment.bottomCenter,
-                  fit: BoxFit.cover,
-                  image: AssetImage('/images/ondas.jpg'))),
-          child: Scrollbar(
-            controller: scrollController,
-            thumbVisibility: true,
-            child: SingleChildScrollView(
-              controller: scrollController,
-              child: const Center(
-                child: IndexView(),
+    return SeoController(
+      tree: WidgetTree(context: context),
+      child: AppHead(
+        title: "RTA Gigometer | Test your speed",
+        description: "",
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData.light().copyWith(
+              scrollbarTheme: const ScrollbarThemeData().copyWith(
+            thumbColor:
+                MaterialStateProperty.all(Colors.white.withOpacity(0.3)),
+          )),
+          home: Scaffold(
+            body: Container(
+              alignment: Alignment.center,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      alignment: Alignment.bottomCenter,
+                      fit: BoxFit.cover,
+                      image: AssetImage('/images/ondas.jpg'))),
+              child: Scrollbar(
+                controller: scrollController,
+                thumbVisibility: true,
+                child: SingleChildScrollView(
+                  controller: scrollController,
+                  child: const Center(
+                    child: IndexView(),
+                  ),
+                ),
               ),
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:seo/seo.dart';
 import 'package:speed_test/services/index_query.dart';
 import 'package:speed_test/ui/views/index/carousel/carousel_widget.dart';
 import 'package:speed_test/ui/views/index/gigometer.dart';
@@ -84,13 +85,17 @@ class IndexView extends StatelessWidget {
                   child: FractionallySizedBox(
                     widthFactor: mobile(context) ? 0.7 : 1,
                     child: FittedBox(
-                      child: Text(
-                        viewTitle,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.plusJakartaSans(
-                          color: Colors.white,
-                          letterSpacing: -0.5,
-                          fontWeight: FontWeight.w800,
+                      child: Seo.text(
+                        style: TextTagStyle.h1,
+                        text: viewTitle,
+                        child: Text(
+                          viewTitle,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.plusJakartaSans(
+                            color: Colors.white,
+                            letterSpacing: -0.5,
+                            fontWeight: FontWeight.w800,
+                          ),
                         ),
                       ),
                     ),
@@ -155,18 +160,28 @@ class LinkingElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String picture = element['Picture']['data']['attributes']['url'];
+    final dynamic picture = element['Picture']['data']['attributes'];
     final String link = element['Link'];
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () => html.window.open(link, ""),
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-              maxWidth:
-                  mobile(context) ? constraintWidth ?? double.infinity : 200),
-          child: Image.network(setPath(picture),
-              width: mobile(context) ? null : screenSize(context).width * 0.15),
+    return Seo.link(
+      anchor: element['Link'],
+      href: element['Link'],
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: () => html.window.open(link, ""),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+                maxWidth:
+                    mobile(context) ? constraintWidth ?? double.infinity : 200),
+            child: Seo.image(
+              alt: picture['alternativeText'],
+              src: setPath(picture['url']),
+              child: Image.network(setPath(picture['url']),
+                  width: mobile(context)
+                      ? null
+                      : screenSize(context).width * 0.15),
+            ),
+          ),
         ),
       ),
     );

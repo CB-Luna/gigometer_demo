@@ -314,6 +314,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "seo",
+      "rootUri": "file:///Users/carolinaroblero/.pub-cache/hosted/pub.dev/seo-0.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///Users/carolinaroblero/Documents/development/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -404,7 +410,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-05-05T17:19:40.436918Z",
+  "generated": "2023-05-08T23:10:11.599200Z",
   "generator": "pub",
   "generatorVersion": "2.19.6"
 }
