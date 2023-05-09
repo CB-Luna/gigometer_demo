@@ -36,13 +36,15 @@ class GigometerProvider extends ChangeNotifier {
   Timer? uploadTimer;
 
   Future<void> loadGigometerAsset() async {
-    final ByteData data = await rootBundle.load('assets/RiveAssets/GigOmeter.riv');
+    final ByteData data =
+        await rootBundle.load('assets/RiveAssets/GigOmeter.riv');
 
     final file = RiveFile.import(data);
 
     final artboard = file.mainArtboard;
 
-    stateMachineController = StateMachineController.fromArtboard(artboard, 'State Machine 1');
+    stateMachineController =
+        StateMachineController.fromArtboard(artboard, 'State Machine 1');
 
     if (stateMachineController != null) {
       artboard.addController(stateMachineController!);
@@ -62,12 +64,14 @@ class GigometerProvider extends ChangeNotifier {
   }
 
   Future<void> loadCarAsset() async {
-    final ByteData data = await rootBundle.load('assets/RiveAssets/LoadingCar.riv');
+    final ByteData data =
+        await rootBundle.load('assets/RiveAssets/LoadingCar.riv');
     final file = RiveFile.import(data);
 
     final artboard = file.mainArtboard;
 
-    stateMachineLoadingController = StateMachineController.fromArtboard(artboard, 'State Machine 1');
+    stateMachineLoadingController =
+        StateMachineController.fromArtboard(artboard, 'State Machine 1');
 
     if (stateMachineLoadingController != null) {
       artboard.addController(stateMachineLoadingController!);
@@ -123,8 +127,10 @@ class GigometerProvider extends ChangeNotifier {
   }
 
   void startDownloadTimer() {
-    downloadTimer = Timer.periodic(const Duration(milliseconds: 500), (Timer t) {
+    downloadTimer =
+        Timer.periodic(const Duration(milliseconds: 500), (Timer t) {
       downloadRate = getTotalSpeed(downloadSpeedsList);
+      print('Velocidad de descarga actual: $downloadRate');
       setInputsDownload(downloadRate, false);
     });
   }
@@ -132,6 +138,7 @@ class GigometerProvider extends ChangeNotifier {
   void startUploadTimer() {
     uploadTimer = Timer.periodic(const Duration(milliseconds: 200), (Timer t) {
       uploadRate = getAverageSpeed(uploadSpeedsList);
+      print('Velocidad de carga actual: $uploadRate');
       setInputsUpload(uploadRate, false);
     });
   }
@@ -168,7 +175,8 @@ class GigometerProvider extends ChangeNotifier {
         cancelToken: cancelToken,
         onReceiveProgress: (actualBytes, totalBytes) async {
           //Se convierten bytes a bits, luego a megabits y luego a Mbps
-          downloadSpeedsList[i] = ((actualBytes * 8) / 1000000) / (requestStopwatch.elapsed.inMilliseconds / 1000);
+          downloadSpeedsList[i] = ((actualBytes * 8) / 1000000) /
+              (requestStopwatch.elapsed.inMilliseconds / 1000);
         },
       ).then<Response<dynamic>?>((_) {
         requestIsFinished[i] = true;
@@ -186,8 +194,10 @@ class GigometerProvider extends ChangeNotifier {
       await Future.delayed(const Duration(milliseconds: 100));
     }
 
-    while (totalStopwatch.elapsed.inSeconds < 15 && allRequestsFinished == false) {
-      allRequestsFinished = requestIsFinished.every((element) => element == true);
+    while (
+        totalStopwatch.elapsed.inSeconds < 15 && allRequestsFinished == false) {
+      allRequestsFinished =
+          requestIsFinished.every((element) => element == true);
       await Future.delayed(const Duration(seconds: 1));
     }
 
@@ -196,6 +206,10 @@ class GigometerProvider extends ChangeNotifier {
     downloadTimer?.cancel();
 
     downloadRate = getTotalSpeed(downloadSpeedsList);
+
+    print('Final download speed: $downloadRate');
+    print('DOWNLOAD SPEEDS');
+    print(downloadSpeedsList);
 
     await Future.delayed(const Duration(seconds: 1));
 
@@ -244,7 +258,8 @@ class GigometerProvider extends ChangeNotifier {
           cancelToken: cancelToken,
           onSendProgress: (actualBytes, totalBytes) async {
             //Se convierten bytes a bits, luego a megabits y luego a Mbps
-            final speed = ((actualBytes * 8) / 1000000) / (requestStopwatch.elapsed.inMilliseconds / 1000);
+            final speed = ((actualBytes * 8) / 1000000) /
+                (requestStopwatch.elapsed.inMilliseconds / 1000);
             uploadSpeedsList.add(speed);
           },
         );
@@ -267,6 +282,9 @@ class GigometerProvider extends ChangeNotifier {
     uploadTimer?.cancel();
 
     uploadRate = getAverageSpeed(uploadSpeedsList);
+    print('Final upload speed: $uploadRate');
+    print('UPLOAD SPEEDS');
+    print(uploadSpeedsList);
     setInputsUpload(uploadRate, true);
 
     setInputLoading(true);
