@@ -26,9 +26,11 @@ class MyApp extends StatelessWidget {
     return SeoController(
       tree: WidgetTree(context: context),
       child: AppHead(
-        title: "RTA Gigometer | Test your speed",
-        description: "",
+        title: "Internet Speed Test | RTA Gigometer | Test your speed",
+        description:
+            "Wondering how fast your internet really is? Test your speed! RTA's Gigometer provides quick and accurate readings of your connection speed.",
         child: MaterialApp(
+          title: "Internet Speed Test | RTA Gigometer | Test your speed",
           debugShowCheckedModeBanner: false,
           theme: ThemeData.light().copyWith(
               scrollbarTheme: const ScrollbarThemeData().copyWith(

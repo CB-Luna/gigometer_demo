@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:seo/seo.dart';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
 import '../../../../services/graphql_config.dart';
@@ -20,34 +21,45 @@ class CarouselSlide extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            promo['Title'],
-            textAlign: TextAlign.center,
-            style: GoogleFonts.plusJakartaSans(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              letterSpacing: -0.25,
+          Seo.text(
+            text: promo['Title'],
+            style: TextTagStyle.h3,
+            child: Text(
+              promo['Title'],
+              textAlign: TextAlign.center,
+              style: GoogleFonts.plusJakartaSans(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                letterSpacing: -0.25,
+              ),
             ),
           ),
           if (promo['Media'] != null)
             ConstrainedBox(
               constraints: const BoxConstraints(maxHeight: 140),
-              child: Image.network(
-                setPath(promo['Media']['data']['attributes']['url']),
+              child: Seo.image(
+                alt: promo['Media']['data']['attributes']['alternativeText'],
+                src: setPath(promo['Media']['data']['attributes']['url']),
+                child: Image.network(
+                  setPath(promo['Media']['data']['attributes']['url']),
+                ),
               ),
             ),
           Padding(
             padding: promo['Media'] != null
                 ? const EdgeInsets.only(bottom: 5.0)
                 : const EdgeInsets.symmetric(vertical: 10.0),
-            child: Text(
-              promo['Paragraph'],
-              textAlign: TextAlign.center,
-              style: GoogleFonts.plusJakartaSans(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w300,
+            child: Seo.text(
+              text: promo['Paragraph'],
+              child: Text(
+                promo['Paragraph'],
+                textAlign: TextAlign.center,
+                style: GoogleFonts.plusJakartaSans(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w300,
+                ),
               ),
             ),
           ),
@@ -55,11 +67,15 @@ class CarouselSlide extends StatelessWidget {
             SizedBox(
               width: 125,
               child: FittedBox(
-                child: PrimaryButton(
-                  text: button['Text'],
-                  onPressed: () => html.window.open(button['Link'], ""),
-                  isActive: true,
-                  bgColor: const Color(0xFF25CB8E),
+                child: Seo.link(
+                  anchor: button['Link'],
+                  href: button['Link'],
+                  child: PrimaryButton(
+                    text: button['Text'],
+                    onPressed: () => html.window.open(button['Link'], ""),
+                    isActive: true,
+                    bgColor: const Color(0xFF25CB8E),
+                  ),
                 ),
               ),
             )

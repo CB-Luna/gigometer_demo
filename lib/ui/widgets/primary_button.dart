@@ -39,7 +39,7 @@ class PrimaryButton extends StatelessWidget {
             style: GoogleFonts.plusJakartaSans(
               fontSize: 16,
               height: 1,
-              color: Colors.white.withOpacity(0.70),
+              color: Colors.white.withOpacity(0.90),
               fontWeight: FontWeight.w700,
             ),
           )),

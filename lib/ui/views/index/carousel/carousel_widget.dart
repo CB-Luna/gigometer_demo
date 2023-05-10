@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:seo/seo.dart';
 
 import '../../../../services/graphql_config.dart';
 import '../../../widgets/circular_container.dart';
@@ -43,13 +44,17 @@ class _CarouselPromosState extends State<CarouselPromos> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                widget.title,
-                style: GoogleFonts.plusJakartaSans(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: -0.25,
+              Seo.text(
+                text: widget.title,
+                style: TextTagStyle.h2,
+                child: Text(
+                  widget.title,
+                  style: GoogleFonts.plusJakartaSans(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: -0.25,
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
@@ -86,9 +91,13 @@ class _CarouselPromosState extends State<CarouselPromos> {
                             decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.75),
                                 shape: BoxShape.circle),
-                            child: Image.network(
-                                setPath(icon['attributes']['url']),
-                                width: 30),
+                            child: Seo.image(
+                              alt: icon['attributes']['alternativeText'],
+                              src: setPath(icon['attributes']['url']),
+                              child: Image.network(
+                                  setPath(icon['attributes']['url']),
+                                  width: 30),
+                            ),
                           ))
                 ],
               ),

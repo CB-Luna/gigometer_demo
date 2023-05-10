@@ -32,7 +32,7 @@ class GigometerFrame extends StatelessWidget {
       alignment: Alignment.topCenter,
       children: [
         SizedBox(
-            height: mobile(context)
+            height: mobile(context) || screenSize(context).height <= 950
                 ? screenSize(context).height
                 : screenSize(context).height * 0.75,
             child: const HtmlElementView(viewType: 'webpage')),
@@ -42,9 +42,9 @@ class GigometerFrame extends StatelessWidget {
           child: Material(
             color: Colors.transparent,
             child: SizedBox(
-              height: mobile(context)
-                  ? (screenSize(context).height) - 130
-                  : (screenSize(context).height * 0.75) - 150,
+              height: mobile(context) || screenSize(context).height <= 950
+                  ? (screenSize(context).height * 0.8) - 60
+                  : (screenSize(context).height * 0.75) - 170,
               width: double.infinity,
             ),
           ),
