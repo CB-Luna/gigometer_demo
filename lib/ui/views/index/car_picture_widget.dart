@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:speed_test/ui/widgets/circular_container.dart';
 
-import '../../../services/graphql_config.dart';
+import '../../../services/project_settings.dart';
 
 class CarImage extends StatelessWidget {
   final String url;

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:seo/seo.dart';
 
-import '../../../../services/graphql_config.dart';
+import '../../../../services/project_settings.dart';
 import '../../../widgets/circular_container.dart';
 import 'carousel_slide.dart';
 

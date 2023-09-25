@@ -1,13 +1,16 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:marquee/marquee.dart';
+import 'package:provider/provider.dart';
 import 'package:seo/seo.dart';
 import 'package:speed_test/services/index_query.dart';
 import 'package:speed_test/ui/views/index/carousel/carousel_widget.dart';
 import 'package:speed_test/ui/views/index/gigometer.dart';
 
-import '../../../services/graphql_config.dart';
+import '../../../providers/tracking_provider.dart';
+import '../../../services/project_settings.dart';
 import '../../../services/resolution.dart';
 import '../../widgets/graphql_call.dart';
 // ignore: avoid_web_libraries_in_flutter
@@ -25,7 +28,8 @@ class IndexView extends StatelessWidget {
     var viewData = result.data?['appGigometer']['data']['attributes'];
 
     //Frame Link
-    final String gigometerLink = viewData['ExtFrame'];
+    final String gigometerLink =
+        envRoute.contains("dev") ? gigometerUrl : viewData['ExtFrame'];
 
     //Logo
     var logoElement = viewData['Logo'];
@@ -33,8 +37,8 @@ class IndexView extends StatelessWidget {
     //AdPromoElement
     var adElement = viewData['PromoAd'];
 
-    // Title
-    final String viewTitle = viewData['Title'];
+    // Dynamic Titles
+    var dynamicTitles = viewData['Titles'];
 
     // Promos Section
     final String promosTitle = viewData['PromosTitle'];
@@ -45,6 +49,13 @@ class IndexView extends StatelessWidget {
     var carouZaneData = viewData['CarouZane'];
 
     const double padding = 20.0;
+
+    const colorizeColors = [
+      Colors.white,
+      Color.fromARGB(255, 205, 229, 248),
+      Color.fromARGB(255, 187, 215, 237),
+      Color.fromARGB(255, 133, 179, 215),
+    ];
 
     Widget merchPromo = Column(
       mainAxisSize: MainAxisSize.min,
@@ -97,7 +108,7 @@ class IndexView extends StatelessWidget {
                   alignment: mobile(context)
                       ? WrapAlignment.center
                       : WrapAlignment.spaceBetween,
-                  crossAxisAlignment: WrapCrossAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.start,
                   children: [
                     Padding(
                       padding: mobile(context)
@@ -122,18 +133,32 @@ class IndexView extends StatelessWidget {
                                   : 550),
                       child: FractionallySizedBox(
                         widthFactor: mobile(context) ? 0.7 : 1,
-                        child: FittedBox(
-                          child: Seo.text(
-                            style: TextTagStyle.h1,
-                            text: viewTitle,
-                            child: Text(
-                              viewTitle,
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.plusJakartaSans(
-                                color: Colors.white,
-                                letterSpacing: -0.5,
-                                fontWeight: FontWeight.w800,
-                              ),
+                        child: SizedBox(
+                          height: mobile(context)
+                              ? 25
+                              : screenSize(context).height * 0.15,
+                          child: FittedBox(
+                            child: Seo.text(
+                              style: TextTagStyle.h1,
+                              text: dynamicTitles.first['Text'],
+                              child: AnimatedTextKit(
+                                  pause: const Duration(milliseconds: 100),
+                                  repeatForever: true,
+                                  animatedTexts: [
+                                    for (var text in dynamicTitles)
+                                      ColorizeAnimatedText(
+                                        text['Text'],
+                                        textAlign: TextAlign.center,
+                                        // duration:
+                                        //     const Duration(milliseconds: 4000),
+                                        colors: colorizeColors,
+                                        textStyle: GoogleFonts.plusJakartaSans(
+                                            color: Colors.white,
+                                            letterSpacing: -0.5,
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: 14),
+                                      ),
+                                  ]),
                             ),
                           ),
                         ),
@@ -206,17 +231,23 @@ class LinkingElement extends StatelessWidget {
   Widget build(BuildContext context) {
     final dynamic picture = element['Picture']['data']['attributes'];
     final String link = element['Link'];
+
+    var tracking = Provider.of<TrackingProvider>(context);
+
     return Seo.link(
       anchor: element['Link'],
       href: element['Link'],
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         child: GestureDetector(
-          onTap: () => html.window.open(link, ""),
+          onTap: () {
+            html.window.open(link, "");
+            tracking.recordTrack(element['Link']);
+          },
           child: ConstrainedBox(
             constraints: BoxConstraints(
                 maxWidth:
-                    mobile(context) ? constraintWidth ?? double.infinity : 200),
+                    mobile(context) ? constraintWidth ?? double.infinity : 170),
             child: Seo.image(
               alt: picture['alternativeText'],
               src: setPath(picture['url']),

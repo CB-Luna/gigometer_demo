@@ -9,6 +9,7 @@ environment:
   sdk: ">=2.19.2 <3.0.0"
 
 dependencies:
+  animated_text_kit: ^4.2.2
   carousel_slider: ^4.2.1
   flutter:
     sdk: flutter
@@ -16,6 +17,7 @@ dependencies:
   graphql_flutter: ^5.1.2
   marquee: ^2.2.3
   pointer_interceptor: ^0.9.3+4
+  provider: ^6.0.5
   seo: ^0.0.4
 
 dev_dependencies:

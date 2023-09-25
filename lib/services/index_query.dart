@@ -5,6 +5,9 @@ const String queryIndex = """
     attributes{
       ExtFrame
       Title
+      Titles{
+        Text
+      }
       Description
       PromosTitle
       Promos{

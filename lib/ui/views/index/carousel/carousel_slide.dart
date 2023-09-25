@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:seo/seo.dart';
+import 'package:speed_test/providers/tracking_provider.dart';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
-import '../../../../services/graphql_config.dart';
+import '../../../../services/project_settings.dart';
 import '../../../widgets/primary_button.dart';
 
 class CarouselSlide extends StatelessWidget {
@@ -16,6 +18,8 @@ class CarouselSlide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var tracking = Provider.of<TrackingProvider>(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
@@ -72,7 +76,10 @@ class CarouselSlide extends StatelessWidget {
                   href: button['Link'],
                   child: PrimaryButton(
                     text: button['Text'],
-                    onPressed: () => html.window.open(button['Link'], ""),
+                    onPressed: () {
+                      html.window.open(button['Link'], "");
+                      tracking.recordTrack(promo['Title']);
+                    },
                     isActive: true,
                     bgColor: const Color(0xFF25CB8E),
                   ),
