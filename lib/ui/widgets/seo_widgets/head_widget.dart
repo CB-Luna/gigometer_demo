@@ -23,8 +23,6 @@ class AppHead extends StatefulWidget {
 }
 
 class _AppHeadState extends State<AppHead> {
-  final _key = UniqueKey();
-
   @override
   Widget build(BuildContext context) {
     return Seo.head(

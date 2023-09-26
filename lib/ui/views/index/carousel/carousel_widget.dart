@@ -10,7 +10,7 @@ import 'carousel_slide.dart';
 class CarouselPromos extends StatefulWidget {
   final String title;
   final dynamic items;
-  final dynamic? icons;
+  final dynamic icons;
 
   const CarouselPromos({
     Key? key,
