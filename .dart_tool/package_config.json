@@ -3,433 +3,721 @@
   "packages": [
     {
       "name": "animated_text_kit",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/animated_text_kit-4.2.2",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/animated_text_kit-4.2.2",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "args",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/args-2.4.1",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/args-2.4.1",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "async",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "boolean_selector",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "carousel_slider",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/carousel_slider-4.2.1",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/carousel_slider-4.2.1",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "characters",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/characters-1.3.0",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/characters-1.3.0",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "clock",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/clock-1.1.1",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/clock-1.1.1",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "collection",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.17.1",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.17.1",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "connectivity_plus",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/connectivity_plus-3.0.6",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/connectivity_plus-3.0.6",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "connectivity_plus_platform_interface",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/connectivity_plus_platform_interface-1.2.4",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/connectivity_plus_platform_interface-1.2.4",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "crypto",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/crypto-3.0.3",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/crypto-3.0.3",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
     {
       "name": "dbus",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/dbus-0.7.8",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/dbus-0.7.8",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
     {
       "name": "fading_edge_scrollview",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/fading_edge_scrollview-3.0.0",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/fading_edge_scrollview-3.0.0",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "fake_async",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/fake_async-1.3.1",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/fake_async-1.3.1",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "ffi",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/ffi-2.0.2",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/ffi-2.0.2",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "file",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/file-6.1.4",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/file-6.1.4",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "flutter",
+<<<<<<< HEAD
       "rootUri": "file:///C:/src/flutter/packages/flutter",
+=======
+      "rootUri": "file:///D:/ProgramData/flutter/packages/flutter",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "flutter_hooks",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_hooks-0.18.6",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_hooks-0.18.6",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "flutter_lints",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-2.0.1",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-2.0.1",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "flutter_test",
+<<<<<<< HEAD
       "rootUri": "file:///C:/src/flutter/packages/flutter_test",
+=======
+      "rootUri": "file:///D:/ProgramData/flutter/packages/flutter_test",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "flutter_web_plugins",
+<<<<<<< HEAD
       "rootUri": "file:///C:/src/flutter/packages/flutter_web_plugins",
+=======
+      "rootUri": "file:///D:/ProgramData/flutter/packages/flutter_web_plugins",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "google_fonts",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-4.0.4",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-4.0.4",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "gql",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/gql-0.14.0",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/gql-0.14.0",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "gql_dedupe_link",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/gql_dedupe_link-2.0.3+1",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/gql_dedupe_link-2.0.3+1",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "gql_error_link",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/gql_error_link-0.2.3+1",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/gql_error_link-0.2.3+1",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "gql_exec",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/gql_exec-0.4.3",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/gql_exec-0.4.3",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "gql_http_link",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/gql_http_link-0.4.5",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/gql_http_link-0.4.5",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.13"
     },
     {
       "name": "gql_link",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/gql_link-0.5.1",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/gql_link-0.5.1",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "gql_transform_link",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/gql_transform_link-0.2.2+1",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/gql_transform_link-0.2.2+1",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "graphql",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/graphql-5.1.3",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/graphql-5.1.3",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "graphql_flutter",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/graphql_flutter-5.1.2",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/graphql_flutter-5.1.2",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "hive",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/hive-2.2.3",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/hive-2.2.3",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "http",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.6",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.6",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
     {
       "name": "http_parser",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.0.2",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.0.2",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "js",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.7",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.7",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
     {
       "name": "lints",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/lints-2.1.0",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/lints-2.1.0",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "marquee",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/marquee-2.2.3",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/marquee-2.2.3",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "matcher",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.15",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.15",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "material_color_utilities",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.2.0",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.2.0",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.13"
     },
     {
       "name": "meta",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.9.1",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.9.1",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "nested",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/nested-1.0.0",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/nested-1.0.0",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "nm",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/nm-0.5.0",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/nm-0.5.0",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "normalize",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/normalize-0.7.2",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/normalize-0.7.2",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "path",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.8.3",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.8.3",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "path_provider",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider-2.0.15",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider-2.0.15",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "path_provider_android",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_android-2.0.27",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_android-2.0.27",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "path_provider_foundation",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_foundation-2.2.3",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_foundation-2.2.3",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "path_provider_linux",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_linux-2.1.11",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_linux-2.1.11",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "path_provider_platform_interface",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_platform_interface-2.0.6",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_platform_interface-2.0.6",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "path_provider_windows",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_windows-2.1.6",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_windows-2.1.6",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "petitparser",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/petitparser-5.4.0",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/petitparser-5.4.0",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
     {
       "name": "platform",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/platform-3.1.0",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/platform-3.1.0",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "plugin_platform_interface",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/plugin_platform_interface-2.1.4",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/plugin_platform_interface-2.1.4",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "pointer_interceptor",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/pointer_interceptor-0.9.3+4",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/pointer_interceptor-0.9.3+4",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "process",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/process-4.2.4",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/process-4.2.4",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "provider",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/provider-6.0.5",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/provider-6.0.5",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "rxdart",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/rxdart-0.27.7",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/rxdart-0.27.7",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "seo",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/seo-0.0.4",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/seo-0.0.4",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "sky_engine",
+<<<<<<< HEAD
       "rootUri": "file:///C:/src/flutter/bin/cache/pkg/sky_engine",
+=======
+      "rootUri": "file:///D:/ProgramData/flutter/bin/cache/pkg/sky_engine",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "source_span",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/source_span-1.9.1",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/source_span-1.9.1",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "stack_trace",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/stack_trace-1.11.0",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/stack_trace-1.11.0",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "stream_channel",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/stream_channel-2.1.1",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/stream_channel-2.1.1",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "string_scanner",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/string_scanner-1.2.0",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/string_scanner-1.2.0",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "term_glyph",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/term_glyph-1.2.1",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/term_glyph-1.2.1",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "test_api",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.5.1",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.5.1",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "typed_data",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.3.2",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.3.2",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "uuid",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/uuid-3.0.7",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/uuid-3.0.7",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "vector_math",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "web_socket_channel",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/web_socket_channel-2.2.0",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/web_socket_channel-2.2.0",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "win32",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/win32-4.1.4",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/win32-4.1.4",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "xdg_directories",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/xdg_directories-1.0.0",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/xdg_directories-1.0.0",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "xml",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/ferna/AppData/Local/Pub/Cache/hosted/pub.dev/xml-6.3.0",
+=======
+      "rootUri": "file:///C:/Users/diego/AppData/Local/Pub/Cache/hosted/pub.dev/xml-6.3.0",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -440,7 +728,11 @@
       "languageVersion": "2.19"
     }
   ],
+<<<<<<< HEAD
   "generated": "2023-09-25T18:42:01.063043Z",
+=======
+  "generated": "2023-09-26T18:34:19.936210Z",
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
   "generator": "pub",
-  "generatorVersion": "3.0.5"
+  "generatorVersion": "3.0.6"
 }

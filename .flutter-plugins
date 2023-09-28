@@ -1,7 +1,16 @@
 # This is a generated file; do not edit or check into version control.
+<<<<<<< HEAD
 connectivity_plus=C:\\Users\\ferna\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\connectivity_plus-3.0.6\\
 path_provider=C:\\Users\\ferna\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider-2.0.15\\
 path_provider_android=C:\\Users\\ferna\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_android-2.0.27\\
 path_provider_foundation=C:\\Users\\ferna\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_foundation-2.2.3\\
 path_provider_linux=C:\\Users\\ferna\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_linux-2.1.11\\
 path_provider_windows=C:\\Users\\ferna\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_windows-2.1.6\\
+=======
+connectivity_plus=C:\\Users\\diego\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\connectivity_plus-3.0.6\\
+path_provider=C:\\Users\\diego\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider-2.0.15\\
+path_provider_android=C:\\Users\\diego\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_android-2.0.27\\
+path_provider_foundation=C:\\Users\\diego\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_foundation-2.2.3\\
+path_provider_linux=C:\\Users\\diego\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_linux-2.1.11\\
+path_provider_windows=C:\\Users\\diego\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_windows-2.1.6\\
+>>>>>>> cf8e5c5727e0ba90fe1e5d26f85a6a1e3bd25a16
