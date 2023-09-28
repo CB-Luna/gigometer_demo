@@ -61,11 +61,14 @@
   <meta name="apple-mobile-web-app-title" content="speed_test">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
   <title>Internet Speed Test | RTA Gigometer | Test your speed</title>
   <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
 
   <script>
     // The value below is injected by flutter build, do not touch.
@@ -75,8 +78,20 @@
   <script src="flutter.js?v=202306160437" defer></script>
 </head>
 <body>
+  <div class="main-container" id="main-container">
+    <div class="container2">
+        <div class="container3">
+            <div class="image_container">
+              <img class="logo" src="UI00-RTA-logo.png" alt="UI00-RTA-logo.png">
+            </div>
+        </div>
+    </div>
+  </div>
+  
   <script>
     window.addEventListener('load', function(ev) {
+
+      var loader = document.querySelector('#main-container')
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
@@ -90,5 +105,6 @@
       });
     });
   </script>
+  
 </body>
 </html>

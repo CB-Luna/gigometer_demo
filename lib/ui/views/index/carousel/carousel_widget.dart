@@ -8,13 +8,13 @@ import '../../../widgets/circular_container.dart';
 import 'carousel_slide.dart';
 
 class CarouselPromos extends StatefulWidget {
-  final String title;
+  final String? title;
   final dynamic items;
-  final dynamic? icons;
+  final dynamic icons;
 
   const CarouselPromos({
     Key? key,
-    required this.title,
+    this.title,
     required this.items,
     this.icons,
   }) : super(key: key);
@@ -44,11 +44,12 @@ class _CarouselPromosState extends State<CarouselPromos> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              widget.title == null?const SizedBox():
               Seo.text(
-                text: widget.title,
+                text: widget.title ?? "",
                 style: TextTagStyle.h2,
                 child: Text(
-                  widget.title,
+                  widget.title ?? "",
                   style: GoogleFonts.plusJakartaSans(
                     color: Colors.white,
                     fontSize: 18,

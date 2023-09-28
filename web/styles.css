@@ -1,0 +1,127 @@
+body {
+    background-color: rgb(32, 74, 138);
+    height:100vh;
+    width:100vw;
+    margin:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.main-container {
+    background-color: rgb(137, 158, 192);
+    height: 30vw;
+    width: 30vw;
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: zoom-in 0.8s ease;
+}
+
+@keyframes zoom-in {
+    0% {
+        transform: scale(0.2, 0.2);
+    }
+    25% {
+        transform: scale(0.4, 0.4);
+    }
+    50% {
+        transform: scale(0.6, 0.6);
+    }
+    75% {
+        transform: scale(0.8, 0.8);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+.container2 {
+    height: 25vw;
+    width: 25vw;
+    border-radius: 50%;
+    background-color: rgb(202, 212, 227);
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    align-items: center;
+}
+
+.container3 {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.container3::after {
+    content: "";
+    width: 15vw;
+    height: 15vw;
+    border-radius: 50%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    border: 3vw solid rgb(234, 244, 252);
+    border-top-color: rgb(170, 208, 243);
+    animation: loading 1.5s ease infinite;
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+.image_container {
+    height: 15vw;
+    width: 15vw;
+    border-radius: 50%;
+    background-color: white;
+    object-fit: contain;
+    justify-content: center;
+    position: absolute;
+    display: flex;
+    align-items: center;
+}
+
+.logo{
+    height: 4vw;
+    width: 13vw;
+    animation: fade 0.8s ease;
+}
+
+@keyframes fade {
+    0%{opacity: 0;}
+    100%{opacity:1;}
+}
+
+@media only screen and (max-width: 600px) {
+    .main-container {
+        height: 80vw;
+        width: 80vw;
+    }
+    .container2{
+        height: 70vw;
+        width: 70vw;
+    }
+    .container3::after{
+        height: 50vw;
+        width: 50vw;
+        border: 5vw solid rgb(234, 244, 252);
+        border-top-color: rgb(170, 208, 243);
+    }
+    .image_container{
+        height: 50vw;
+        width: 50vw;
+    }
+    .logo{
+        height: 15vw;
+        width: 35vw;
+    }    
+}

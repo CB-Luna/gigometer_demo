@@ -41,7 +41,7 @@ class IndexView extends StatelessWidget {
     var dynamicTitles = viewData['Titles'];
 
     // Promos Section
-    final String promosTitle = viewData['PromosTitle'];
+    final dynamic promosTitle = viewData?['PromosTitle'];
     var promosIcons = viewData['PromosIcons']['data'];
     var promosData = viewData['Promos'];
 
