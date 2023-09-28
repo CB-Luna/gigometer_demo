@@ -90,8 +90,7 @@ class IndexView extends StatelessWidget {
                               "data": {
                                 "attributes": {
                                   "alternativeText": "Gigometer Logo",
-                                  "url":
-                                      "/uploads/thumbnail_RTA_rtatelcom_white_59a0388216.png"
+                                  "url": "https://i.imgur.com/xSEOZqQ.png"
                                 }
                               }
                             },
@@ -370,8 +369,13 @@ class LinkingElement extends StatelessWidget {
                     mobile(context) ? constraintWidth ?? double.infinity : 170),
             child: Seo.image(
               alt: picture['alternativeText'],
-              src: setPath(picture['url']),
-              child: Image.network(setPath(picture['url']),
+              src: picture["url"].contains("imgur")
+                  ? picture['url']
+                  : setPath(picture['url']),
+              child: Image.network(
+                  picture["url"].contains("imgur")
+                      ? picture['url']
+                      : setPath(picture['url']),
                   width: mobile(context)
                       ? null
                       : screenSize(context).width * 0.15),
