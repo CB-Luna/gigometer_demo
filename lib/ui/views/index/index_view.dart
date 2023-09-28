@@ -5,6 +5,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:marquee/marquee.dart';
 import 'package:provider/provider.dart';
 import 'package:seo/seo.dart';
+import 'package:speed_test/services/add_head_script.dart';
 import 'package:speed_test/services/index_query.dart';
 import 'package:speed_test/ui/views/index/carousel/carousel_widget.dart';
 import 'package:speed_test/ui/views/index/gigometer.dart';
@@ -209,6 +210,9 @@ class IndexView extends StatelessWidget {
         ),
       ],
     );
+
+    var headScript = ""; // viewData["Schema"];
+    addHeadScript(headScript);
 
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 1400),
